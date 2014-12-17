@@ -4,9 +4,10 @@ author: "Loïc Dutrieux, Jan Verbesselt"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
+    theme: united
     toc: true
     toc_depth: 4
-    theme: united
+    number_sections: true
 ---
 
 # Today's items
@@ -37,6 +38,33 @@ So more specifically, at the end of the day you should:
 # Today's learning Objectives
 
 # Examples
+
+## Vector/Raster handling: Measuring temperature anomaly in Kenya
+
+### The example (script)
+
+- download temperature anomaly data/ VCF data/ Landsat/shape file kenya
+- randomly sample different locations
+- analyse temperature (standard deviation) and visualise results on a spatial map
+
+```{r}
+library(raster)
+#?getData
+
+```
+
+### The contribution of scripting
+
+- automation: being able to use this script for analysis of any location in the world
+- reprodubility
+- quick and efficient analysis
+
+### Basic scriping skills required
+
+- being able to download data
+- handle raster and vector data
+- spatial analysis (point sampling)
+- visualise things.
 
 ## An automated raster processing chain (from data download to final map)
 
