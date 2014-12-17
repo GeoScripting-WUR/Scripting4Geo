@@ -47,11 +47,55 @@ So more specifically, at the end of the day you should:
 - randomly sample different locations
 - analyse temperature (standard deviation) and visualise results on a spatial map
 
-```{r}
+```{r, eval=FALSE}
 library(raster)
-#?getData
-
+library(sp)
+library(spatstat)
+bel <- getData('alt', country='BEL', mask=TRUE)
+belshp <- getData('GADM', country='BEL', level=1)
+plot(bel)
+bbox(bel)
+dran <- runifpoint(100, win = as.vector(extent(bel)))
+plot(bel)
+plot(dran, add=TRUE, col = "red", pch = 3)
+plot(belshp, add=TRUE)
+# select only the points within Belgium? 
+# use the belshp and clip option
+# visualise the result and extract data - plot everything into a nice data frame
 ```
+
+```{r}
+## load the googleVis package
+suppressPackageStartupMessages(library(googleVis))
+
+##
+data(Exports)    # a simple data frame
+Geo <- gvisGeoMap(Exports, locationvar="Country", numvar="Profit", 
+                  options=list(height=400, dataMode='regions'))
+```
+
+```{r, results='asis'}
+print(Geo, "chart")  ## same as cat(sc$html$chart)
+```
+
+```{r}
+df <- data.frame(x = 1:10, y = 1:10)
+
+ ## load the googleVis package
+suppressPackageStartupMessages(library(googleVis))
+## create the scatter chart
+sc <- gvisScatterChart(data=df,
+                        options=list(width=300, height=300, 
+                                     legend='none',
+                                     hAxis="{title:'x'}",
+                                     vAxis="{title:'y'}")
+          )
+```
+
+```{r, results='asis'}
+print(sc, "chart")  ## same as cat(sc$html$chart)
+```
+
 
 ### The contribution of scripting
 
@@ -102,7 +146,14 @@ We learned about:
 Submit a 1/2 page document where you identify the potential contribution of Geo-scripting for yourself, as well as the specific R or python knowledge you would need to learn about. Keep it short, to the point and structured.
 
 
-# More info
+# Inspiration and More info
+
+- http://www.magesblog.com/2012/05/interactive-reports-in-r-with-knitr-and.html
+
+Yet another tutorial:
+
+- https://pakillo.github.io/R-GIS-tutorial/
+- http://github.com/mages/googleVis
 
 About projections and code: https://www.nceas.ucsb.edu/scicomp/recipes/projections
 
