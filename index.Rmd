@@ -1,12 +1,83 @@
 ---
 title: "Scripting for Geo-Information Sciences, demonstration of capabilities"
 author: "Loïc Dutrieux, Jan Verbesselt"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: true
     toc_depth: 4
     theme: united
 ---
+
+# Today's items
+
+## ToDo in the morning
+
+- Finalise yesterdays lesson
+- Have a look at the demo's below. Just run and see.
+
+## Objective of today
+
+Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, Analysis). 
+Every showcase fill be followed by:
+A reflection on what is the interest of using scripting for that particular problem
+An assessment of the R knowledge required to perform that particular problem
+
+## Learning outcomes of today:
+
+The objective of that lecture is to provide an overview of the capabilities of scripting to solve common problems of the Geo-Information world. The lesson is organized as a set of examples that you can run, visualize the output and understand how the use of scripting was beneficial to tackling the geo-issue. Following each example a reflection is provided on the interest of using scripting for tackling that particular issue as well as associated scripting skills that were required in the example.
+
+So more specifically, at the end of the day you should:
+
+* Have an overview of what can be achieved using scripting
+* Identify a situation where the use of scripting is beneficial over click based approach
+* Be able to identify which basic scripting skills are required for different Geo-issues
+* Have identified how scripting can benefit your own project e.g. master thesis research questions
+
+# Today's learning Objectives
+
+# Examples
+
+## An automated raster processing chain (from data download to final map)
+
+### The example
+
+### Contribution of scripting
+
+* Reproducibility
+
+### Basic scipting skills required
+
+* String handling
+* List queries
+* Error handling
+
+## A shiny map
+
+### The example
+### Contribution of scripting
+### Basic scipting skills required
+
+* dataframe manipulation
+
+
+
+# Today's summary
+
+We learned about:
+
+- test
+- test
+
+# Assignment
+
+Submit a 1/2 page document where you identify the potential contribution of Geo-scripting for yourself, as well as the specific R or python knowledge you would need to learn about. Keep it short, to the point and structured.
+
+
+# More info
+
+About projections and code: https://www.nceas.ucsb.edu/scicomp/recipes/projections
+
 
 <!--Demonstrate potential
 Trigger interest
@@ -23,43 +94,5 @@ Extract features immediately followed by statistical analysis
 Communicate result with a beautiful interactive (shiny) map
 Bonus: If every showcase is embedded into a real world story, that is definitely a bonus
 -->
-
-
-# Today's learning Objectives
-
-The objective of that lecture is to provide an overview of the capabilities of scripting to solve common problems of the Geo-Information world. The lesson is organized as a set of examples that you can run, visualize the output and understand how the use of scripting was beneficial to tackling the geo-issue. Following each example a reflection is provided on the interest of using scripting for tackling that particular issue as well as associated scripting skills that were required in the example.
-
-So more specifically, at the end of the day you should:
-
-* Have an overview of what can be achieved using scripting
-* Identify a situation where the use of scripting is beneficial over click based approach
-* Be able to identify which basic scripting skills are required for different Geo issues
-* Have identified how scripting can benefit your own master thesis research questions
-
-# Examples
-## An automated raster processing chain (from data download to final map)
-### The example
-### Contribution of scripting
-
-* Reproducibility
-
-### Basic scipting skills required
-
-* String handling
-* List queries
-* Error handling
-
-## A shiny map
-### The example
-### Contribution of scripting
-### Basic scipting skills required
-
-* dataframe manipulation
-
-
-# Assignment
-
-Submit a 2-3 pages document in which you describe your thesis topic (If you don't have one, make one up). And identify the potential contribution of Geo-scripting to that project, as well as the specific R or python knowledge you would need to acquire.
-
 
 
