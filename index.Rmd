@@ -83,6 +83,10 @@ library(raster)
 ## A shiny map
 
 ### The example
+
+<iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
+
+
 ### Contribution of scripting
 ### Basic scipting skills required
 
