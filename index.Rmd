@@ -39,15 +39,16 @@ So more specifically, at the end of the day you should:
 
 # Examples
 
-## Vector/Raster handling: Measuring temperature anomaly in Kenya
+## Vector/Raster handling and visualisation
 
 ### The example (script)
 
 - download temperature anomaly data/ VCF data/ Landsat/shape file kenya
 - randomly sample different locations
 - analyse temperature (standard deviation) and visualise results on a spatial map
+- visualise results in an interactive map
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo = FALSE}
 library(raster)
 library(sp)
 library(spatstat)
@@ -78,7 +79,7 @@ Geo <- gvisGeoMap(Exports, locationvar="Country", numvar="Profit",
 print(Geo, "chart")  ## same as cat(sc$html$chart)
 ```
 
-```{r}
+```{r, echo=FALSE}
 df <- data.frame(x = 1:10, y = 1:10)
 
  ## load the googleVis package
@@ -92,7 +93,7 @@ sc <- gvisScatterChart(data=df,
           )
 ```
 
-```{r, results='asis'}
+```{r, results='asis', echo=FALSE}
 print(sc, "chart")  ## same as cat(sc$html$chart)
 ```
 
