@@ -124,12 +124,42 @@ print(sc, "chart")  ## same as cat(sc$html$chart)
 * List queries
 * Error handling
 
+## Interactive maps
+
+The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
+
+```{r, echo=FALSE, results='asis'}
+library(googleVis)
+library(XML)
+
+# Read table from html
+url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
+x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+
+# Clean up df 
+colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
+x$oldest <- as.numeric(x$oldest)
+x$number <- as.numeric(gsub("\\*", "", x$number))
+x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
+x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
+
+nationalParks <- x
+
+g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
+                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
+print('<center>')
+print(g)
+print('</center>')
+```
+
 ## A shiny map
 
-### The example
+The above map is nice, but still pretty static; it only display two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
+The app below allows you to select the variables you want to map relating to national park of europe.
 
+<center>
 <iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
-
+</center>
 
 ### Contribution of scripting
 ### Basic scipting skills required
