@@ -171,10 +171,13 @@ The app below allows you to select the variables you want to map relating to nat
 
 # Today's summary
 
-We learned about:
+To summarize, we saw today that scripting can be used for many purposes:
 
-- test
-- test
+* Automate steps and deal with large amounts of data
+* Solve complex problems (run custom made functions, while traditional GIS environments are limited to the features they provide)
+* Make work reproducible (also beneficial for collaboration)
+* Visualize data and build interactive geo data visualization tools
+
 
 # Assignment
 
