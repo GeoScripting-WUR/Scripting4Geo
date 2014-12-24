@@ -48,19 +48,43 @@ So more specifically, at the end of the day you should:
 - analyse temperature (standard deviation) and visualise results on a spatial map
 - visualise results in an interactive map
 
+[more info](https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r)
+
+
 ```{r, eval=FALSE, echo = FALSE}
 library(raster)
 library(sp)
 library(spatstat)
+library(rgeos)
+
 bel <- getData('alt', country='BEL', mask=TRUE)
-belshp <- getData('GADM', country='BEL', level=1)
+belshp <- getData('GADM', country='BEL', level=2)
 plot(bel)
-bbox(bel)
+
 dran <- runifpoint(100, win = as.vector(extent(bel)))
+# select only the points within Belgium?
+S <- SpatialPoints(data.frame(x = dran$x, y = dran$y), 
+            proj4string = CRS(proj4string(belshp)))
+
+out <- extract(bel, S, df = TRUE, sp = TRUE)
+out
+out <- extract(bel, belshp, na.rm = TRUE, df = TRUE, fun = mean)
+out$name <- belshp$NAME_2
+
+
+plot(out)
+
+?extract
 plot(bel)
-plot(dran, add=TRUE, col = "red", pch = 3)
+plot(S, add=TRUE, col = "red", pch = 3)
 plot(belshp, add=TRUE)
-# select only the points within Belgium? 
+intersect <- gIntersection(S, belshp)
+warnings()
+Sover <- over(S, belshp)
+Sover
+plot(bel)
+plot(intersect, add = TRUE)
+plot(Sover, add=TRUE, col = "red", pch = 3)
 # use the belshp and clip option
 # visualise the result and extract data - plot everything into a nice data frame
 ```
@@ -81,8 +105,7 @@ print(Geo, "chart")  ## same as cat(sc$html$chart)
 
 ```{r, echo=FALSE}
 df <- data.frame(x = 1:10, y = 1:10)
-
- ## load the googleVis package
+## load the googleVis package
 suppressPackageStartupMessages(library(googleVis))
 ## create the scatter chart
 sc <- gvisScatterChart(data=df,
@@ -91,6 +114,7 @@ sc <- gvisScatterChart(data=df,
                                      hAxis="{title:'x'}",
                                      vAxis="{title:'y'}")
           )
+plot(sc)
 ```
 
 ```{r, results='asis', echo=FALSE}
