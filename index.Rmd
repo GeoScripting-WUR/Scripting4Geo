@@ -20,9 +20,10 @@ output:
 ## Objective of today
 
 Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, Analysis). 
-Every showcase fill be followed by:
-A reflection on what is the interest of using scripting for that particular problem
-An assessment of the R knowledge required to perform that particular problem
+Every showcase will be followed by:
+
+- A reflection of what is the interest of using scripting for that particular problem
+- An assessment of the R knowledge required to perform that particular problem
 
 ## Learning outcomes of today:
 
@@ -30,110 +31,80 @@ The objective of that lecture is to provide an overview of the capabilities of s
 
 So more specifically, at the end of the day you should:
 
-* Have an overview of what can be achieved using scripting
+* Have an idea of what can be achieved using scripting
 * Identify a situation where the use of scripting is beneficial over click based approach
-* Be able to identify which basic scripting skills are required for different Geo-issues
 * Have identified how scripting can benefit your own project e.g. master thesis research questions
-
-# Today's learning Objectives
 
 # Examples
 
-## Vector/Raster handling and visualisation
+## Efficient Vector & Raster downloading, handling and visualisation
 
-### The example (script)
+### The example
 
-- download temperature anomaly data/ VCF data/ Landsat/shape file kenya
-- randomly sample different locations
-- analyse temperature (standard deviation) and visualise results on a spatial map
+In the script below we do the following:
+
+- download SRTM data for a country e.g. Belgium
+- randomly sample height data
 - visualise results in an interactive map
 
-[more info](https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r)
+Note: If you finished everything of lesson 1, you can use the script below to analyse height or climate data for your own country by modifying the script below.
 
+```{r, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
 
-```{r, eval=FALSE, echo = FALSE}
+## libraries needed
 library(raster)
-library(sp)
 library(spatstat)
 library(rgeos)
-
-bel <- getData('alt', country='BEL', mask=TRUE)
-belshp <- getData('GADM', country='BEL', level=2)
-plot(bel)
-
-dran <- runifpoint(100, win = as.vector(extent(bel)))
-# select only the points within Belgium?
+## you can choose your own country here
+bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+## create random points
+dran <- runifpoint(500, win = as.vector(extent(bel)))
+## make the random point spatial points
 S <- SpatialPoints(data.frame(x = dran$x, y = dran$y), 
             proj4string = CRS(proj4string(belshp)))
-
-out <- extract(bel, S, df = TRUE, sp = TRUE)
-out
-out <- extract(bel, belshp, na.rm = TRUE, df = TRUE, fun = mean)
-out$name <- belshp$NAME_2
-
-
-plot(out)
-
-?extract
+## select only the once within belgium
+Sint <- gIntersection(S, belshp)
+## create a map
 plot(bel)
-plot(S, add=TRUE, col = "red", pch = 3)
 plot(belshp, add=TRUE)
-intersect <- gIntersection(S, belshp)
-warnings()
-Sover <- over(S, belshp)
-Sover
-plot(bel)
-plot(intersect, add = TRUE)
-plot(Sover, add=TRUE, col = "red", pch = 3)
-# use the belshp and clip option
-# visualise the result and extract data - plot everything into a nice data frame
+plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
 ```
 
-```{r}
-## load the googleVis package
+Now we can sample the height data and visualise in the nice interactive scatterplot:
+
+```{r, message=FALSE}
 suppressPackageStartupMessages(library(googleVis))
-
-##
-data(Exports)    # a simple data frame
-Geo <- gvisGeoMap(Exports, locationvar="Country", numvar="Profit", 
-                  options=list(height=400, dataMode='regions'))
+out <- extract(bel, Sint, df = TRUE, sp = TRUE)
+df <- data.frame(out@coords, height = out@data, row.names=NULL)
+names(df) <- c('x', 'y', 'height')
+df$x <- NULL
 ```
 
-```{r, results='asis'}
-print(Geo, "chart")  ## same as cat(sc$html$chart)
-```
-
-```{r, echo=FALSE}
-df <- data.frame(x = 1:10, y = 1:10)
-## load the googleVis package
-suppressPackageStartupMessages(library(googleVis))
-## create the scatter chart
+```{r, results='asis', echo=FALSE, fig.align='center'}
 sc <- gvisScatterChart(data=df,
-                        options=list(width=300, height=300, 
-                                     legend='none',
-                                     hAxis="{title:'x'}",
-                                     vAxis="{title:'y'}")
-          )
-plot(sc)
+                        options=list(width=600, height=500,
+                            legend='none',
+                            hAxis="{title:'Y (Latitude)'}",
+                            vAxis="{title:'Height'}"))
+print('<center>')
+print(sc)
+print('<center>')
 ```
-
-```{r, results='asis', echo=FALSE}
-print(sc, "chart")  ## same as cat(sc$html$chart)
-```
-
 
 ### The contribution of scripting
 
-- automation: being able to use this script for analysis of any location in the world
-- reprodubility
+- ability to automaticaliy download data from any place in the world
 - quick and efficient analysis
+- can easiliy be repeated for other countries, other datasets
 
 ### Basic scriping skills required
 
-- being able to download data
+Being able to:
+- download data
 - handle raster and vector data
 - spatial analysis (point sampling)
-- visualise things.
+- visualise spatial relationships
 
 ## An automated raster processing chain (from data download to final map)
 
@@ -211,6 +182,7 @@ Submit a 1/2 page document where you identify the potential contribution of Geo-
 # Inspiration and More info
 
 - http://www.magesblog.com/2012/05/interactive-reports-in-r-with-knitr-and.html
+- https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r
 
 Yet another tutorial:
 
