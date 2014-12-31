@@ -95,8 +95,11 @@ print('<center>')
 ### The contribution of scripting
 
 - ability to automaticaliy download data from any place in the world
-- quick and efficient analysis
+- quick and efficient analysis by sampling data randomly
 - can easiliy be repeated for other countries, other datasets
+
+The big advantage of scripting here is that you can efficiently analyse and summarize data for any kind of data set.
+
 
 ### Basic scriping skills required
 
