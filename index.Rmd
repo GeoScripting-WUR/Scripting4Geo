@@ -14,7 +14,7 @@ output:
 
 ## ToDo in the morning
 
-- Finalise yesterdays lesson
+- Finalise yesterdays [lesson and excercise](https://geoscripting-wur.github.io/Scripting4GeoIntro/#gettingstarted)
 - Have a look at the demo's below. Just run and see.
 
 ## Objective of today
@@ -37,7 +37,7 @@ So more specifically, at the end of the day you should:
 
 # Examples
 
-## Efficient Vector & Raster downloading, handling and visualisation
+## Efficient Vector/Raster handling
 
 ### The example
 
@@ -47,7 +47,7 @@ In the script below we do the following:
 - randomly sample height data
 - visualise results in an interactive map
 
-Note: If you finished everything of lesson 1, you can use the script below to analyse height or climate data for your own country by modifying the script below.
+Note: If you finished everything of lesson 1, you can use the script below to analyse height (or climate data) for your own country by modifying the script below.
 
 ```{r, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
 
@@ -98,8 +98,7 @@ print('<center>')
 - quick and efficient analysis by sampling data randomly
 - can easiliy be repeated for other countries, other datasets
 
-The big advantage of scripting here is that you can efficiently analyse and summarize data for any kind of data set.
-
+The big advantage of scripting here is that you can efficiently analyse and visualise for any kind of data set.
 
 ### Basic scriping skills required
 
