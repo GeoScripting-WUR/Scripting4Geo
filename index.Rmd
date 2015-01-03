@@ -131,7 +131,7 @@ With GIS software you are often limited to set of feature the software provides 
 
 The example bellow illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
 
-```{r}
+```{r, eval=FALSE}
 # Download a spatio-temporal dataset
 download.file(url = 'https://github.com/dutri001/bfastSpatial/raw/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
 load('tura.rda')
@@ -139,7 +139,7 @@ load('tura.rda')
 
 There is now a variable named `tura` in your environment, it is a time-series of NDVI over an area of Ethiopia.
 
-```{r}
+```{r, eval=FALSE}
 library(zoo)
 # Define the function to extract and plot the time series
 click2ts <- function(x) {
@@ -161,7 +161,14 @@ click2ts(tura)
 
 Exploring the temporal dimension of a dataset is often not possible in classical GIS environments. The flexibility of scripting allows to do that with minimal efforts.
 
+### Basic scripting skills required
+
+* Understand the structure of spatial objects
+* Write functions
+
 ## Visualization
+
+We saw earlier that simple maps can be produced with R for display in reports or static supports. R also offers more advanced visualisation capabilities, particularly suited for web content.
 
 ### The example - *Interactive maps*
 
@@ -191,7 +198,7 @@ print(g)
 print('</center>')
 ```
 
-## A shiny map
+### Interactive maps - 2
 
 The above map is nice, but still pretty static; it only display two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
 The app below allows you to select the variables you want to map relating to national park of europe.
@@ -200,10 +207,22 @@ The app below allows you to select the variables you want to map relating to nat
 <iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
 </center>
 
+Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/).
+
+<center>
+<iframe src="http://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
+</iframe>
+</center>
+
 ### Contribution of scripting
+
+* "User friendly" interface to javascript libraries
+
 ### Basic scipting skills required
 
 * dataframe manipulation
+* String manipulation (subsetting, pattern matching)
+* Function writting
 
 ## Reproducibility
 
