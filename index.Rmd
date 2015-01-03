@@ -269,7 +269,7 @@ The app below allows you to select the variables you want to map relating to nat
 <iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
 </center>
 
-Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/).
+Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
 
 
 <center>
