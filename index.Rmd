@@ -39,32 +39,13 @@ So more specifically, at the end of the day you should:
 
 ## Integrated analysis chain (from raw data download to figures/statistical output)
 
-## Automation
+### The example - *Efficient Vector/Raster handling*
 
-The use of scripting is particularly well suited for automation. Automated systems can take different forms; from online systems that deliver updated information every day without human intervention needed. [Add example here (whether forecast?)]. To more simple systems that, when extecuted, are able to find data themselves in a directory architecture and recognize patterns to extract meta-information (eg: Extract date from a satellite image file name).
-
-The example above, that uses height data could easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
-
-## Visualization
-
-## Flexibility
-With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
-
-    * Explore your data in all its dimensions
-    * Implement complex and custom made algorithms and functions.
-
-## Reproducibility
-All examples shown in this demo have at least one characteristic in common; they are all **reproducible**. While you may not always remember the parameters you have selected when analyzing or creating map in a GIS environment, scripting leaves a fully reproducible mark of what you have done. 
-
-## Efficient Vector/Raster handling
-
-### The example
-
-In the script below we do the following:
+In the script below we does the following:
 
 - download SRTM data for a country e.g. Belgium
 - randomly sample height data
-- visualise results in an interactive map
+- visualise results in an interactive plot
 
 Note: If you finished everything of lesson 1, you can use the script below to analyse height (or climate data) for your own country by modifying the script below.
 
@@ -108,39 +89,81 @@ sc <- gvisScatterChart(data=df,
                             vAxis="{title:'Height'}"))
 print('<center>')
 print(sc)
-print('<center>')
+print('</center>')
 ```
 
 ### The contribution of scripting
 
-- ability to automaticaliy download data from any place in the world
+- ability to automatically download data from any place in the world
 - quick and efficient analysis by sampling data randomly
-- can easiliy be repeated for other countries, other datasets
-
-The big advantage of scripting here is that you can efficiently analyse and visualise for any kind of data set.
+- can easiliy be repeated for other countries, other datasets (reproducible)
+- Fully integrated analysis chain, from data download to output
 
 ### Basic scriping skills required
 
 Being able to:
+
 - handle raster and vector data
-- spatial analysis (point sampling)
-- visualise spatial relationships
+- Understand and use basic spatial analysis functions
+- Perform simple data.frame manipulation
 
-## An automated raster processing chain (from data download to final map)
+## Automation
 
-### The example
+The use of scripting is particularly well suited for automation. Automated systems can take different forms; from online systems that deliver updated information every day without human intervention needed. [Add example here (whether forecast?)]. To more simple systems that, when extecuted, are able to find data themselves in a directory architecture and recognize patterns to extract meta-information (eg: Extract date from a satellite image file name).
 
-### Contribution of scripting
-
-* Reproducibility
+The example above, that uses height data could easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
 ### Basic scipting skills required
 
-* String handling
-* List queries
+The basic scripting skills required when wanting to automate things are:
+
+* String handling (generate automatic file names, recognize patterns, etc ...)
+* Query lists and data.frames
 * Error handling
 
-## Interactive maps
+## Flexibility
+With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
+
+* Explore your data in all its dimensions
+* Implement complex and custom made algorithms and functions.
+
+### The example 1 - Visualize the temporal profile of a pixel
+
+The example bellow illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
+
+```{r}
+# Download a spatio-temporal dataset
+download.file(url = 'https://github.com/dutri001/bfastSpatial/raw/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
+load('tura.rda')
+```
+
+There is now a variable named `tura` in your environment, it is a time-series of NDVI over an area of Ethiopia.
+
+```{r}
+library(zoo)
+# Define the function to extract and plot the time series
+click2ts <- function(x) {
+    val <- click(x, n = 1)
+    z <- getZ(x)
+    plot(zoo(t(t), z), type = 'p', pch = 20, xlab = 'Time', ylab = 'NDVI (-)')
+}
+```
+
+Then run the code block below. R will be waiting for you to click on the map, and quickly after the time-series will appear.
+
+
+```{r, eval=FALSE}
+plot(tura, 1)
+click2ts(tura)
+```
+
+### The contribution of scripting
+
+Exploring the temporal dimension of a dataset is often not possible in classical GIS environments. The flexibility of scripting allows to do that with minimal efforts.
+
+## Visualization
+
+### The example - *Interactive maps*
 
 The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
@@ -182,7 +205,9 @@ The app below allows you to select the variables you want to map relating to nat
 
 * dataframe manipulation
 
+## Reproducibility
 
+All examples shown in this demo have at least one characteristic in common; they are all **reproducible**. While you may not always remember the parameters you have selected when analyzing or creating map in a GIS environment, scripting leaves a fully reproducible mark of what you have done.
 
 # Today's summary
 
