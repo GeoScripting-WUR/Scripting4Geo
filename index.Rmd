@@ -127,7 +127,7 @@ With GIS software you are often limited to set of feature the software provides 
 * Explore your data in all its dimensions
 * Implement complex and custom made algorithms and functions.
 
-### The example 1 - Visualize the temporal profile of a pixel
+### The example 1 - *Visualize the temporal profile of a pixel*
 
 The example bellow illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
 
@@ -165,6 +165,68 @@ Exploring the temporal dimension of a dataset is often not possible in classical
 
 * Understand the structure of spatial objects
 * Write functions
+
+### The example 2 - *Implement a custom made function to a raster time-series*
+
+The example below uses a time-series of MODIS VCF data, which correspond to percentage tree cover, to investigate temporal trends of tree cover over the Netherlands.
+
+```{r, eval=FALSE}
+## Trend calculator
+library(zoo)
+library(lubridate)
+library(raster)
+
+# Download data (if it doesn't work, try with method='wget')
+download.file(url = 'https://github.com/GeoScripting-WUR/Scripting4Geo/raw/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'tura.rda', method = 'auto')
+# Read the data
+modis <- readRDS('MODIS_VCF_2000-2010_NL.rds')
+# Clean data (values > 100 correspond to water)
+modis[modis > 100] <- NA
+# Visualize
+plot(modis, 1)
+```
+
+```{r, echo=FALSE, fig.align='center'}
+# For compiling tutorial
+modis <- readRDS('data/MODIS_VCF_2000-2010_NL.rds')
+modis[modis > 100] <- NA
+# Visualize
+plot(modis, 1)
+```
+
+```{r, eval=FALSE}
+# For the example we will reduce the extent so that processing does not take too long
+e <- extent(340101, 370323, 5756221, 5787772)
+plot(e, add=TRUE)
+modis_sub <- crop(modis, e)
+plot(modis_sub, 1)
+
+# Define function to calculate temporal trends
+fun <- function(x) {
+    ts <- zoo(x, time)
+    df <- data.frame(t = decimal_date(index(ts)), vcf = c(ts))
+    lm(vcf ~ t, data = df)$coefficients[2]
+}
+
+# Run the function spatially (this may take a few minutes, time for a break?)
+time <- getZ(modis)
+out <- calc(x = modis_sub, fun = fun)
+
+# Visualize output
+plot(out)
+```
+
+You should see a map displaying the tree cover percentage temporal trends for the 2000-2010 period.
+
+### Contribution of scripting
+
+Scripting thanks to its flexibility offers the possibility to implement any custom made function to any dataset.
+
+### Basic scripting skills required
+
+* Write functions
+* Manipulate spatial objects
+* Know well the details of the functions/algorithms to be implemented spatially
 
 ## Visualization
 
@@ -209,6 +271,7 @@ The app below allows you to select the variables you want to map relating to nat
 
 Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/).
 
+
 <center>
 <iframe src="http://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
 </iframe>
@@ -240,7 +303,7 @@ To summarize, we saw today that scripting can be used for many purposes:
 
 # Assignment
 
-Submit a 1/2 page document where you identify the potential contribution of Geo-scripting for yourself, as well as the specific R or python knowledge you would need to learn about. Keep it short, to the point and structured.
+Submit a 1 page document where you identify the potential contribution of Geo-scripting for yourself, as well as the specific R or python knowledge you would need to learn about. Keep it short, to the point and structured.
 
 
 # Inspiration and More info
