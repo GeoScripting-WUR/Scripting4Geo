@@ -37,6 +37,25 @@ So more specifically, at the end of the day you should:
 
 # Examples
 
+## Integrated analysis chain (from raw data download to figures/statistical output)
+
+## Automation
+
+The use of scripting is particularly well suited for automation. Automated systems can take different forms; from online systems that deliver updated information every day without human intervention needed. [Add example here (whether forecast?)]. To more simple systems that, when extecuted, are able to find data themselves in a directory architecture and recognize patterns to extract meta-information (eg: Extract date from a satellite image file name).
+
+The example above, that uses height data could easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
+
+## Visualization
+
+## Flexibility
+With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
+
+    * Explore your data in all its dimensions
+    * Implement complex and custom made algorithms and functions.
+
+## Reproducibility
+All examples shown in this demo have at least one characteristic in common; they are all **reproducible**. While you may not always remember the parameters you have selected when analyzing or creating map in a GIS environment, scripting leaves a fully reproducible mark of what you have done. 
+
 ## Efficient Vector/Raster handling
 
 ### The example
@@ -103,7 +122,6 @@ The big advantage of scripting here is that you can efficiently analyse and visu
 ### Basic scriping skills required
 
 Being able to:
-- download data
 - handle raster and vector data
 - spatial analysis (point sampling)
 - visualise spatial relationships
