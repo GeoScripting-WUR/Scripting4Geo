@@ -140,6 +140,7 @@ Being able to:
 - Understand and use basic spatial analysis functions
 
 ## Flexibility
+
 With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
 
 * Explore your data in all its dimensions
@@ -321,10 +322,10 @@ To summarize, we saw today that scripting can be used for many purposes:
 
 # Assignment
 
-Submit a (maximum) 1 page document where you identify 
+Submit a (maximum) 1 page document where you identify:
 
-    - the potential contribution of Geo-scripting for yourself, 
-    - as well as the specific R or python knowledge you would need to learn about. 
+- the potential contribution of Geo-scripting for yourself, 
+- as well as the specific R or python knowledge you would need to learn about. 
 
 Keep it short, to the point and structured.
 
