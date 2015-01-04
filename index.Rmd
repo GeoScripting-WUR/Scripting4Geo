@@ -119,7 +119,7 @@ names(prec) <- month.abb
 cols <- heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1)
 cols <- rev(sequential_hcl(12))
 for (i in 1:12) {
-    plot(prec, i, zlim=c(0,1100), col=cols)
+    plot(prec, i, zlim=c(0,500), col=cols)
 }
 ```
 
@@ -132,7 +132,6 @@ for (i in 1:12) {
 
 ### Basic scriping skills required
 
-Being able to:
 - String handling (generate automatic file names, recognize patterns, etc ...)
 - Query lists and data.frames
 - Error handling
