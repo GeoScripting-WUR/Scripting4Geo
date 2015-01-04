@@ -35,11 +35,18 @@ So more specifically, at the end of the day you should:
 * Identify a situation where the use of scripting is beneficial over click based approach
 * Have identified how scripting can benefit your own project e.g. master thesis research questions
 
-# Examples
+# Why scripting?
 
-## Integrated analysis chain (from raw data download to figures/statistical output)
+## Automation
 
-### The example - *Efficient Vector/Raster handling*
+The use of scripting is particularly well suited for automation. 
+Automated systems can take different forms; 
+
+- online systems that deliver updated information every day without human intervention needed (e.g. weather prediction). 
+
+- more simple systems that e.g. to extract date from a satellite image file name.
+
+### Example 1: Integrated analysis chain from download to analysis
 
 In the script below we does the following:
 
@@ -47,10 +54,13 @@ In the script below we does the following:
 - randomly sample height data
 - visualise results in an interactive plot
 
-Note: If you finished everything of lesson 1, you can use the script below to analyse height (or climate data) for your own country by modifying the script below.
+```{r, eval=FALSE, echo=FALSE}
+library(raster)
+# getData('ISO3')
+```
+
 
 ```{r, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
-
 ## libraries needed
 library(raster)
 library(spatstat)
@@ -92,6 +102,27 @@ print(sc)
 print('</center>')
 ```
 
+This example can easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
+
+**Try it yourself**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
+
+### Example 2: Visualising mean world precipitation dynamics
+
+Visualising mean world precipitation automatically downloaded from http://www.worldclim.org/methods
+
+```{r, fig.width=10, fig.height=5, fig.show='animate', message=FALSE}
+library(raster)
+library(rasterVis)
+library(colorspace)
+prec <- getData('worldclim', var='prec', res=10)
+names(prec) <- month.abb
+cols <- heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1)
+cols <- rev(sequential_hcl(12))
+for (i in 1:12) {
+    plot(prec, i, zlim=c(0,1100), col=cols)
+}
+```
+
 ### The contribution of scripting
 
 - ability to automatically download data from any place in the world
@@ -102,24 +133,11 @@ print('</center>')
 ### Basic scriping skills required
 
 Being able to:
-
+- String handling (generate automatic file names, recognize patterns, etc ...)
+- Query lists and data.frames
+- Error handling
 - handle raster and vector data
 - Understand and use basic spatial analysis functions
-- Perform simple data.frame manipulation
-
-## Automation
-
-The use of scripting is particularly well suited for automation. Automated systems can take different forms; from online systems that deliver updated information every day without human intervention needed. [Add example here (whether forecast?)]. To more simple systems that, when extecuted, are able to find data themselves in a directory architecture and recognize patterns to extract meta-information (eg: Extract date from a satellite image file name).
-
-The example above, that uses height data could easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
-
-### Basic scipting skills required
-
-The basic scripting skills required when wanting to automate things are:
-
-* String handling (generate automatic file names, recognize patterns, etc ...)
-* Query lists and data.frames
-* Error handling
 
 ## Flexibility
 With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
@@ -303,10 +321,15 @@ To summarize, we saw today that scripting can be used for many purposes:
 
 # Assignment
 
-Submit a 1 page document where you identify the potential contribution of Geo-scripting for yourself, as well as the specific R or python knowledge you would need to learn about. Keep it short, to the point and structured.
+Submit a (maximum) 1 page document where you identify 
+
+    - the potential contribution of Geo-scripting for yourself, 
+    - as well as the specific R or python knowledge you would need to learn about. 
+
+Keep it short, to the point and structured.
 
 
-# Inspiration and More info
+# Inspiration and more info
 
 - http://www.magesblog.com/2012/05/interactive-reports-in-r-with-knitr-and.html
 - https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r
