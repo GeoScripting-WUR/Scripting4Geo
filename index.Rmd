@@ -60,7 +60,7 @@ library(raster)
 ```
 
 
-```{r, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
+```{r, heigh, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
 ## libraries needed
 library(raster)
 library(spatstat)
@@ -110,7 +110,7 @@ This example can easily be ran for every country of the world with minimal human
 
 Visualising mean world precipitation automatically downloaded from http://www.worldclim.org/methods
 
-```{r, fig.width=10, fig.height=5, fig.show='animate', message=FALSE}
+```{r, animation, fig.width=10, fig.height=5, fig.show='animate', message=FALSE}
 library(raster)
 library(rasterVis)
 library(colorspace)
@@ -204,7 +204,7 @@ modis[modis > 100] <- NA
 plot(modis, 1)
 ```
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, MODIS, echo=FALSE, fig.align='center'}
 # For compiling tutorial
 modis <- readRDS('data/MODIS_VCF_2000-2010_NL.rds')
 modis[modis > 100] <- NA
@@ -254,7 +254,7 @@ We saw earlier that simple maps can be produced with R for display in reports or
 
 The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
-```{r, echo=FALSE, results='asis'}
+```{r, interactive, echo=FALSE, results='asis'}
 library(googleVis)
 library(XML)
 
@@ -286,6 +286,20 @@ The app below allows you to select the variables you want to map relating to nat
 <center>
 <iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
 </center>
+
+In case the above example does not work, run it locally using the code below.
+
+```{r, eval = FALSE}
+if(!require(XML))
+    install.packages('XML')
+if(!require(googleVis))
+    install.packages('googleVis')
+if(!require(shiny))
+    install.packages('shiny')
+
+runGitHub('dutri001/shinyGoogleVis', launch.browser = TRUE)
+```
+
 
 Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
 
