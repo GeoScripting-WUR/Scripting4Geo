@@ -97,7 +97,7 @@ library(zoo)
 click2ts <- function(x) {
     val <- click(x, n = 1)
     z <- getZ(x)
-    plot(zoo(t(t), z), type = 'p', pch = 20, xlab = 'Time', ylab = 'NDVI (-)')
+    plot(zoo(t(val), z), type = 'p', pch = 20, xlab = 'Time', ylab = 'NDVI (-)')
 }
 ```
 
