@@ -17,6 +17,12 @@ output:
 - Finalise yesterdays [lesson and excercise](https://geoscripting-wur.github.io/Scripting4GeoIntro/#gettingstarted)
 - Have a look at the demo's below. Just run and see.
 
+## Summary of Lesson 1 
+
+Discussion and results can be found here: 
+https://geoscripting-wur.github.io/Scripting4Geo/wordcloud.html
+
+
 ## Objective of today
 
 Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, Analysis). 

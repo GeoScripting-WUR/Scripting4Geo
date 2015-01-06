@@ -1,0 +1,304 @@
+---
+title: "Lesson 1 Summary"
+author: "Jan Verbesselt"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    theme: united
+    toc: true
+    toc_depth: 4
+    number_sections: true
+---
+
+# Questionnaire
+
+## A summary
+
+[Google summary](https://docs.google.com/forms/d/1qVqb6g2sbrjCS3UWoqUG3X2ISW0FSiKsxE3y1_-RDKk/viewanalytics)
+
+## What would you like to learn by following this course?
+
+```{r, eval=TRUE, message=FALSE, echo = FALSE, results='hide'}
+require(XML)
+require(tm)
+require(wordcloud)
+require(RColorBrewer)
+getwd()
+u = "data/lesson1/Form Responses 1.html"
+t = readHTMLTable(u)[[1]]
+# out <- data.frame(as.character(t[,4]))
+
+ap.corpus <- Corpus(DataframeSource(data.frame(as.character(t[,4]))))
+# ap.corpus <- tm_map(ap.corpus, removePunctuation)
+# ap.corpus <- tm_map(ap.corpus, tolower)
+ap.corpus <- tm_map(ap.corpus, content_transformer(tolower))
+ap.corpus <- tm_map(ap.corpus, function(x) removeWords(x, stopwords("english")))
+ap.corpus <- tm_map(ap.corpus, stripWhitespace); #inspect(docs[1])
+ap.corpus <- tm_map(ap.corpus, stemDocument)
+
+ap.tdm <- TermDocumentMatrix(ap.corpus)
+ap.m <- as.matrix(ap.tdm)
+ap.v <- sort(rowSums(ap.m),decreasing=TRUE)
+ap.d <- data.frame(word = names(ap.v),freq=ap.v)
+table(ap.d$freq)
+pal2 <- brewer.pal(8,"Dark2")
+# png(fn, width=1480, height=900)
+wordcloud(ap.d$word,ap.d$freq, scale=c(7,.4),min.freq=1,
+max.words=Inf, random.order=FALSE, rot.per=.15, colors=pal2)
+# dev.off()  
+```
+
+## What is your motivation to follow this course?
+
+```{r, eval=TRUE, message=FALSE, echo = FALSE, results='hide'}
+require(XML)
+require(tm)
+require(wordcloud)
+require(RColorBrewer)
+getwd()
+u = "data/lesson1/Form Responses 1.html"
+t = readHTMLTable(u)[[1]]
+
+ap.corpus <- Corpus(DataframeSource(data.frame(as.character(t[,5]))))
+ap.corpus <- tm_map(ap.corpus, removePunctuation)
+# ap.corpus <- tm_map(ap.corpus, tolower)
+ap.corpus <- tm_map(ap.corpus, content_transformer(tolower))
+#ap.corpus <- tm_map(ap.corpus, function(x) removeWords(x, stopwords("english")))
+ap.corpus <- tm_map(ap.corpus, stripWhitespace); #inspect(docs[1])
+ap.corpus <- tm_map(ap.corpus, stemDocument)
+
+ap.tdm <- TermDocumentMatrix(ap.corpus)
+ap.m <- as.matrix(ap.tdm)
+ap.v <- sort(rowSums(ap.m),decreasing=TRUE)
+ap.d <- data.frame(word = names(ap.v),freq=ap.v)
+table(ap.d$freq)
+pal2 <- brewer.pal(8,"Dark2")
+# png(fn, width=1480, height=900)
+wordcloud(ap.d$word,ap.d$freq, scale=c(4,.4),min.freq=1,
+max.words=Inf, random.order=FALSE, rot.per=.15, colors=pal2)
+# dev.off()  
+```
+
+## What is your scripting experience?
+
+```{r, eval=TRUE, message=FALSE, echo = FALSE, results='hide'}
+require(XML)
+require(tm)
+require(wordcloud)
+require(RColorBrewer)
+getwd()
+u = "data/lesson1/Form Responses 1.html"
+t = readHTMLTable(u)[[1]]
+df <- data.frame(as.character(t$G[c(-1,-2)]))
+ap.corpus <- Corpus(DataframeSource(df))
+# ap.corpus <- tm_map(ap.corpus, removePunctuation)
+# ap.corpus <- tm_map(ap.corpus, tolower)
+ap.corpus <- tm_map(ap.corpus, content_transformer(tolower))
+#ap.corpus <- tm_map(ap.corpus, function(x) removeWords(x, stopwords("english")))
+ap.corpus <- tm_map(ap.corpus, stripWhitespace); #inspect(docs[1])
+ap.corpus <- tm_map(ap.corpus, stemDocument)
+
+ap.tdm <- TermDocumentMatrix(ap.corpus)
+ap.m <- as.matrix(ap.tdm)
+ap.v <- sort(rowSums(ap.m),decreasing=TRUE)
+ap.d <- data.frame(word = names(ap.v),freq=ap.v)
+table(ap.d$freq)
+pal2 <- brewer.pal(8,"Dark2")
+# png(fn, width=1480, height=900)
+wordcloud(ap.d$word,ap.d$freq, scale=c(6,.4), min.freq=1,
+max.words=Inf, random.order=FALSE, rot.per=.15, colors=pal2)
+# dev.off()  
+```
+
+# Excercise
+
+## Nice solutions
+
+```{r, eval=FALSE}
+# Name: Team Lopez. Members: Peter Hooiveld & Bart Driessen
+# Date: January 5, 2015
+
+rm(list=ls())
+
+# Import packages
+# install.packages("raster")
+# install.packages("maps")
+library(raster)
+library(maps)
+
+north.arrow = function(x, y, h) {
+  polygon(c(x, x, x + h/2), c(y - h, y, y - (1 + sqrt(3)/2) * h),
+          col = "black", border = NA)
+  polygon(c(x, x + h/2, x, x - h/2), c(y - h, y - (1 + sqrt(3)/2) *
+                                         h, y, y - (1 + sqrt(3)/2) * h))
+  text(x, y, "N", adj = c(0.5, 0), cex = 0.9)
+}
+
+# Define the function
+MapMaker <- function(country, levels, province="No province specified"){
+  datdir <- 'data'
+  dir.create(datdir, showWarnings = FALSE)
+  if(province=="No province specified"){
+    adm <- getData("GADM", country = country,
+                 level = levels, path = datdir)
+  }
+  else{
+    adm <- getData("GADM", country = country,
+                 level = levels, path = datdir)
+    adm <- adm[adm$NAME_1 == province,]
+  }
+  plot(adm, bg = "dodgerblue", axes=T)
+  plot(adm, lwd = 10, border = "skyblue", add=T)
+  plot(adm, col = "green4", add = T)
+  grid()
+  box()
+  name <- paste("NAME_",levels,sep="")
+  invisible(text(getSpPPolygonsLabptSlots(adm),
+                 labels = as.character(adm[[name]]), cex = 0.5, col = "white", font = 1))
+  if(province=="No province specified"){
+    mtext(side = 3, line = 1, paste("Province map of",country,sep=" "), cex = 1.1)
+  }
+  else{
+    mtext(side = 3, line = 1, paste("Municipality map of",province,"of",country,sep=" "), cex = 1.1)
+  }
+  mtext(side = 1, "Longitude", line = 2.5, cex=1.1)
+  mtext(side = 2, "Latitude", line = 2.5, cex=1.1)
+  legend("topleft", "\n
+Projection: Geographic\n
+Coordinate System: WGS 1984\n
+Data Source: GADM.org",adj = c(0, 0), cex = 0.6, col = "grey20",bg="transparent",box.col="transparent")
+### Using legend is easier than using text in this case, due to the fact that you can stick it in a certian corner of the map (without having to supply any x or y coordinates)
+  map.scale(grconvertX(0.02,"npc"), grconvertY(0.1, "npc"),metric = T, ratio=F, relwidth=0.2,cex=0.8)
+  north.arrow(grconvertX(0.95,"npc"), grconvertY(0.9, "npc"),0.05)
+### Another way to do this is by using the min and max coordinates from the bbox, as in: as.data.frame(bbox(adm))$min[1]*1.05, as.data.frame(bbox(adm))$min[2]*0.95; this can however lead to problems in maps that have completely different scalings; hence our use of grconvertX and grconvertY
+}
+
+# An example based on the funtion
+### Two examples for a province
+MapMaker("Netherlands",2,"Limburg")
+MapMaker("France",2,"Champagne-Ardenne")
+
+### Two examples for a country
+MapMaker("Samoa",1)
+MapMaker("Nepal",1)
+#The Netherlands is possible but it takes a while, so only try that one if you really want to and have patience.
+MapMaker("Netherlands",1
+```
+
+```{r, eval=FALSE}
+# Name: David Scholte-Albers & Astrid Bos
+# Date: 05 January 2015
+rm(list = ls())
+# Import packages
+library(raster)
+
+# Define the function
+drawMap  <- function(countryname, level){
+        datdir <- 'data'
+        if (!file.exists(datdir)) { dir.create(datdir)}
+        
+        adm <- raster::getData("GADM", country = countryname, level = level, path = datdir)
+        mapExtent <- extent(adm)
+                
+        #plot main parts of map
+        plot(adm)
+        plot(adm, bg = "skyblue4", axes=T)
+        plot(adm, lwd = 3, border = "ghostwhite", add=T)
+        plot(adm, col = "forestgreen", add = T)
+        grid()
+        box()
+        
+        #print labels on the map (labels of level chosen by user)
+        label <- eval(parse(text=paste("adm$NAME_", level, sep="")))
+        text(getSpPPolygonsLabptSlots(adm), labels = label, cex = 0.7, col = "white", font = 2)
+        
+        #print titles on axes
+        mtext(side = 3, line = 1, paste("Map of ", countryname, sep=""), cex = 2)
+        mtext(side = 1, "Longitude", line = 2.5, cex=1.1)
+        mtext(side = 2, "Latitude", line = 2.5, cex=1.1)
+
+        #add legend
+        par(lheight=.5)
+        text(mapExtent@xmin, mapExtent@ymin,"Projection: Geographic Coordinate System: WGS 1984 - Data Source: GADM.org", adj = c(0, 0), cex = 0.7, col = "white")
+}
+
+# An example based on that function
+
+drawMap("Iceland", 1) #drawMap function uses country name and level as input arguments
+```
+
+```{r, eval=FALSE}
+# Name: Nikoula, Siti Latifah and Tziolas Nikolaos
+# Date: 6 January 2015
+
+# Import packages
+library(raster)
+
+# Define the function
+
+createMap <- function(country, level){
+  # This function generates and plots a map automatically using country and level as inputs
+  # level indicates map subdivision, nowadays the range available is between 0 and 5 as described in www.gadm.org/maps;however it can be varied among countries
+  ## references <<
+  ## "Global Administrative Areas." N.p., n.d. Web. 5 Jan. 2015. <http://www.gadm.org/maps>.
+  #check the values of input "level"
+    if ((level)!=0 & (level)!=1 & (level)!=2 & (level)!=3 & (level)!=4 & (level)!=5){
+      stop("'level' has to be between '0' to '5'")
+    }
+  
+  #specify the direction of data
+  datdir <- 'data'
+  dir.create(datdir, showWarnings = FALSE)
+  
+  #plot the map
+  map <- raster::getData("GADM", country = country,level = level, path = datdir)
+  plot(map,bg = "dodgerblue", axes=T)
+  plot(map, lwd = 15, border = "skyblue", add=T)
+  plot(map, col = "green4", add = T)
+  grid()
+  box()
+
+  # Name of map title and axes
+  mtext(side = 3, line = 1, paste("Map of", country), cex = 2)
+  mtext(side = 1, "Longitude", line = 2.5, cex=1.1)
+  mtext(side = 2, "Latitude", line = 2.5, cex=1.1)
+  
+  #name of provinces
+  labels<-paste("map$NAME_", level, sep="")
+  text(getSpPPolygonsLabptSlots(map),
+  labels = eval(parse(text=labels)), cex =0.5, col = "white", font = 2)
+  
+  # create the legend
+  par(lheight=.4)  
+  legendText<-c("Projection: Geographic\n
+Coordinate System: WGS 1984\n
+Data Source: GADM.org")
+  
+  legend("topleft", # position
+         legend = legendText, 
+         cex = 0.7,
+         col="black",
+         bty = "n") # border
+}
+
+# Examples based on that function
+createMap("Greece",1) # This example plots the provincial map of Greece
+createMap("Greece",9) # #To test the function if the level input is larger than 5
+```
+
+## Comments
+
+No need to:
+
+- set the working directory
+- to install R packages just load them
+
+Extra:
+
+- do not forget Name, Date
+- filename - add your teamname_date_lastnames_   e.g. Lesson1.R is not good.
+
+# Self reflection
+
+* How was the excercise? How was TryR?
+
