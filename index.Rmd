@@ -284,7 +284,7 @@ The above map is nice, but still pretty static; it only display two variables, w
 The app below allows you to select the variables you want to map relating to national park of europe.
 
 <center>
-<iframe src="http://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
+<iframe src="https://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
 </center>
 
 In case the above example does not work, run it locally using the code below.
@@ -305,7 +305,7 @@ Much more advanced examples are possible, as shown below, with an integration of
 
 
 <center>
-<iframe src="http://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
+<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
 </iframe>
 </center>
 
