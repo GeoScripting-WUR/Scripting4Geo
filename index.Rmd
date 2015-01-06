@@ -195,7 +195,7 @@ library(lubridate)
 library(raster)
 
 # Download data (if it doesn't work, try with method='wget')
-download.file(url = 'https://github.com/GeoScripting-WUR/Scripting4Geo/raw/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'tura.rda', method = 'auto')
+download.file(url = 'https://github.com/GeoScripting-WUR/Scripting4Geo/raw/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'MODIS_VCF_2000-2010_NL.rds', method = 'auto')
 # Read the data
 modis <- readRDS('MODIS_VCF_2000-2010_NL.rds')
 # Clean data (values > 100 correspond to water)
@@ -223,7 +223,10 @@ plot(modis_sub, 1)
 fun <- function(x) {
     ts <- zoo(x, time)
     df <- data.frame(t = decimal_date(index(ts)), vcf = c(ts))
-    lm(vcf ~ t, data = df)$coefficients[2]
+    out <- try(lm(vcf ~ t, data = df)$coefficients[2], silent = T)
+    if(class(out) == 'try-error')
+        out <- NA
+    return(out)
 }
 
 # Run the function spatially (this may take a few minutes, time for a break?)
@@ -232,6 +235,7 @@ out <- calc(x = modis_sub, fun = fun)
 
 # Visualize output
 plot(out)
+hist(out, main = 'Tree cover change at 250 m resolution (2000-2010)', xlab = 'Percentage change')
 ```
 
 You should see a map displaying the tree cover percentage temporal trends for the 2000-2010 period.
