@@ -1,0 +1,192 @@
+---
+title: "Scripting for Geo: *Some examples*"
+author: "Loïc Dutrieux, Jan Verbesselt"
+date: "01/06/2015"
+output: slidy_presentation
+---
+
+## GeoScripting useful for:
+- Automation
+- Flexibility
+- Visualization
+- Reproducibility
+
+---
+
+## Automation
+
+### An integrated *processing chain*, from data download to analysis and visualization
+
+```{r, eval=FALSE}
+## libraries needed
+library(raster)
+library(spatstat)
+library(rgeos)
+## you can choose your own country here
+bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+## create random points
+dran <- runifpoint(500, win = as.vector(extent(bel)))
+## make the random point spatial points
+S <- SpatialPoints(data.frame(x = dran$x, y = dran$y), 
+            proj4string = CRS(proj4string(belshp)))
+## select only the once within belgium
+Sint <- gIntersection(S, belshp)
+## create a map
+plot(bel)
+plot(belshp, add=TRUE)
+plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
+```
+
+---
+
+```{r, echo=FALSE, message=FALSE}
+## libraries needed
+library(raster)
+library(spatstat)
+library(rgeos)
+## you can choose your own country here
+bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+## create random points
+dran <- runifpoint(500, win = as.vector(extent(bel)))
+## make the random point spatial points
+S <- SpatialPoints(data.frame(x = dran$x, y = dran$y), 
+            proj4string = CRS(proj4string(belshp)))
+## select only the once within belgium
+Sint <- gIntersection(S, belshp)
+## create a map
+plot(bel)
+plot(belshp, add=TRUE)
+plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
+```
+
+---
+
+```{r, echo=FALSE, results='asis'}
+suppressPackageStartupMessages(library(googleVis))
+out <- extract(bel, Sint, df = TRUE, sp = TRUE)
+df <- data.frame(out@coords, height = out@data, row.names=NULL)
+names(df) <- c('x', 'y', 'height')
+df$x <- NULL
+
+sc <- gvisScatterChart(data=df,
+                        options=list(width=600, height=500,
+                            legend='none',
+                            hAxis="{title:'Y (Latitude)'}",
+                            vAxis="{title:'Height'}"))
+print('<center>')
+print(sc)
+print('</center>')
+```
+
+---
+
+## Flexibility - *Explore all dimensions of your data*
+
+```{r, eval=FALSE}
+# Download a spatio-temporal dataset
+download.file(url = 'https://github.com/dutri001/bfastSpatial/raw/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
+load('tura.rda')
+```
+
+
+```{r, eval=FALSE}
+library(zoo)
+# Define the function to extract and plot the time series
+click2ts <- function(x) {
+    val <- click(x, n = 1)
+    z <- getZ(x)
+    plot(zoo(t(t), z), type = 'p', pch = 20, xlab = 'Time', ylab = 'NDVI (-)')
+}
+```
+
+```{r, eval=FALSE}
+plot(tura, 1)
+click2ts(tura)
+```
+
+---
+
+## Flexibility - *solve complex questions*
+
+### Temporal trend calculation
+
+```{r, eval=FALSE}
+## Trend calculator
+library(zoo)
+library(lubridate)
+library(raster)
+
+# Download data (if it doesn't work, try with method='wget')
+download.file(url = 'https://github.com/GeoScripting-WUR/Scripting4Geo/raw/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'MODIS_VCF_2000-2010_NL.rds', method = 'auto')
+# Read the data
+modis <- readRDS('MODIS_VCF_2000-2010_NL.rds')
+# Clean data (values > 100 correspond to water)
+modis[modis > 100] <- NA
+# Visualize
+plot(modis, 1)
+```
+
+---
+
+```{r, eval=FALSE}
+# For the example we will reduce the extent so that processing does not take too long
+e <- extent(340101, 370323, 5756221, 5787772)
+plot(e, add=TRUE)
+modis_sub <- crop(modis, e)
+plot(modis_sub, 1)
+
+# Define function to calculate temporal trends
+fun <- function(x) {
+    ts <- zoo(x, time)
+    df <- data.frame(t = decimal_date(index(ts)), vcf = c(ts))
+    out <- try(lm(vcf ~ t, data = df)$coefficients[2], silent = T)
+    if(class(out) == 'try-error')
+        out <- NA
+    return(out)
+}
+
+# Run the function spatially (this may take a few minutes, time for a break?)
+time <- getZ(modis)
+out <- calc(x = modis_sub, fun = fun)
+
+# Visualize output
+plot(out)
+hist(out, main = 'Tree cover change at 250 m resolution (2000-2010)', xlab = 'Percentage change')
+```
+
+---
+
+## Visualization
+
+```{r, eval=FALSE}
+library(googleVis)
+library(XML)
+
+# Read table from html
+url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
+x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+
+# Clean up df 
+colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
+x$oldest <- as.numeric(x$oldest)
+x$number <- as.numeric(gsub("\\*", "", x$number))
+x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
+x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
+
+nationalParks <- x
+
+g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
+                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
+print(g)
+```
+
+---
+
+## Visualization - *Shiny*
+
+<center>
+<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
+</iframe>
+</center>
