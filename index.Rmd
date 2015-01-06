@@ -335,12 +335,16 @@ To summarize, we saw today that scripting can be used for many purposes:
 
 # Assignment
 
-Submit a (maximum) 1 page document where you identify per team:
+Submit a minimum 1/2 page (and maximum 1 page) document where you identify per team:
 
-- the potential contribution of Geo-scripting for yourself, 
-- as well as the specific R or python knowledge you would need to learn about. 
+- A brief description of your thesis project or any project in which you plan to use GeoScripting.
+  - highlight the potential contribution of Geo-scripting for yourself, 
+  - as well as the specific R or python knowledge you would need to learn about
 
-Keep it short, to the point and structured (e.g. a list of items are ok, no full sentences are needed). The deadline is before the end of today (6/01).
+Keep it short, to the point and structured. 
+(e.g. a list of items are ok, no full sentences are needed). 
+
+The deadline is before the end of today (6/01).
 
 # Inspiration and more info
 
