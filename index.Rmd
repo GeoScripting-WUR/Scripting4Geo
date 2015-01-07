@@ -54,7 +54,7 @@ Automated systems can take different forms;
 
 ### Example 1: Integrated analysis chain from download to analysis
 
-In the script below we does the following:
+In the script below we do the following:
 
 - download SRTM data for a country e.g. Belgium
 - randomly sample height data
@@ -290,7 +290,7 @@ print('</center>')
 
 ### Interactive maps - 2
 
-The above map is nice, but still pretty static; it only display two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
+The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
 The app below allows you to select the variables you want to map relating to national park of europe.
 
 <center>
