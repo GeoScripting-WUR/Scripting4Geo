@@ -1,13 +1,15 @@
 ---
-title: "Scripting for Geo-Information Sciences, demonstration of capabilities"
-author: "Loïc Dutrieux, Jan Verbesselt"
+title: "[WUR GRS-51806 Geoscripting](https://geoscripting-wur.github.io/)"
+subtitle: "Week 1, Lesson 2: Scripting for Geo-Information Sciences, demonstration of capabilities"
+author: "Jan Verbesselt and Loïc Dutrieux"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
-    theme: united
-    toc: true
-    toc_depth: 4
-    number_sections: true
+    number_sections: yes
+    css: custom.css
+    highlight: tango
+    toc: yes
+    toc_depth: 2
 ---
 
 # Today's items
@@ -16,12 +18,6 @@ output:
 
 - Finalise yesterdays [lesson and excercise](https://geoscripting-wur.github.io/Scripting4GeoIntro/#gettingstarted)
 - Have a look at the demo's below. Just run and see.
-
-## Summary of Lesson 1 
-
-Discussion and results can be found here: 
-https://geoscripting-wur.github.io/Scripting4Geo/wordcloud.html
-
 
 ## Objective of today
 
@@ -72,8 +68,8 @@ library(raster)
 library(spatstat)
 library(rgeos)
 ## you can choose your own country here
-bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
-belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+bel <- raster::getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- raster::getData('GADM', country='BEL', level=2) ## administrative boundaries
 ## create random points
 dran <- runifpoint(500, win = as.vector(extent(bel)))
 ## make the random point spatial points
@@ -120,7 +116,7 @@ Visualising mean world precipitation automatically downloaded from http://www.wo
 library(raster)
 library(rasterVis)
 library(colorspace)
-prec <- getData('worldclim', var='prec', res=10)
+prec <- raster::getData('worldclim', var='prec', res=10)
 names(prec) <- month.abb
 cols <- heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1)
 cols <- rev(sequential_hcl(12))
@@ -267,10 +263,13 @@ The map below (created using the googleVis package) displays statistics about th
 ```{r, interactive, echo=FALSE, results='asis'}
 library(googleVis)
 library(XML)
+library(httr)
 
 # Read table from html
 url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
-x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+#x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+page <- GET(url, user_agent("httr"))
+x <- readHTMLTable(text_content(page), which=3, stringsAsFactors = FALSE)
 
 # Clean up df 
 colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
