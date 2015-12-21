@@ -48,7 +48,7 @@ Automated systems can take different forms;
 
 - more simple systems that e.g. to extract date from a satellite image file name.
 
-### Example 1: Integrated analysis chain from download to analysis
+### Demo 1: Integrated analysis chain from download to analysis
 
 In the script below we do the following:
 
@@ -108,7 +108,7 @@ This example can easily be ran for every country of the world with minimal human
 
 **Try it yourself**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
 
-### Example 2: Visualising mean world precipitation dynamics
+### Demo 2: Visualising mean world precipitation dynamics
 
 Visualising mean world precipitation automatically downloaded from http://www.worldclim.org/methods
 
@@ -147,7 +147,7 @@ With GIS software you are often limited to set of feature the software provides 
 * Explore your data in all its dimensions
 * Implement complex and custom made algorithms and functions.
 
-### The example 1 - *Visualize the temporal profile of a pixel*
+### Demo 1 - *Visualize the temporal profile of a pixel*
 
 The example bellow illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
 
@@ -186,7 +186,7 @@ Exploring the temporal dimension of a dataset is often not possible in classical
 * Understand the structure of spatial objects
 * Write functions
 
-### The example 2 - *Implement a custom made function to a raster time-series*
+### Demo 2 - *Implement a custom made function to a raster time-series*
 
 The example below uses a time-series of MODIS VCF data, which correspond to percentage tree cover, to investigate temporal trends of tree cover over the Netherlands.
 
@@ -256,7 +256,7 @@ Scripting thanks to its flexibility offers the possibility to implement any cust
 
 We saw earlier that simple maps can be produced with R for display in reports or static supports. R also offers more advanced visualisation capabilities, particularly suited for web content.
 
-### The example - *Interactive maps*
+### Demo: *Interactive maps*
 
 The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
@@ -290,27 +290,8 @@ print('</center>')
 ### Interactive maps - 2
 
 The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
-The app below allows you to select the variables you want to map relating to national park of europe.
 
-<center>
-<iframe src="https://loicd.shinyapps.io/shinyGoogleVis" width="600" height="750" frameborder="0">Loading</iframe>
-</center>
-
-In case the above example does not work, run it locally using the code below.
-
-```{r, eval = FALSE}
-if(!require(XML))
-    install.packages('XML')
-if(!require(googleVis))
-    install.packages('googleVis')
-if(!require(shiny))
-    install.packages('shiny')
-
-runGitHub('dutri001/shinyGoogleVis', launch.browser = TRUE)
-```
-
-
-Much more advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
+Advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
 
 
 <center>
