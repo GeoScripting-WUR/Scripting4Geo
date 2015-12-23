@@ -1,7 +1,7 @@
 ---
 title: "[WUR GRS-51806 Geoscripting](https://geoscripting-wur.github.io/)"
 subtitle: "Week 1, Lesson 2: Scripting for Geo-Information Sciences, demonstration of capabilities"
-author: "Loïc Dutrieux, Jan Verbesselt & johannes Eberenz"
+author: "Loïc Dutrieux, Jan Verbesselt & Johannes Eberenz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
