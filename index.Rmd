@@ -254,7 +254,23 @@ Scripting thanks to its flexibility offers the possibility to implement any cust
 
 We saw earlier that simple maps can be produced with R for display in reports or static supports. R also offers more advanced visualisation capabilities, particularly suited for web content.
 
-### Demo: *Interactive maps*
+### Interactive maps - 1 
+
+Check out the nice new leaflet package for R, that creates interactive web maps with the JavaScript 'Leaflet' Library. 
+
+*Question*: Try this in your own R environment.
+
+```{r, interactive1, eval = TRUE}
+library(leaflet)
+m <- leaflet()
+m <- addTiles(m)
+m <- addMarkers(m, lng=5.665349, lat=51.987870, popup="Wageningen University")
+m
+```
+
+See here for more information: http://www.htmlwidgets.org/showcase_leaflet.html
+
+### Interactive maps - 2 
 
 The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
@@ -287,7 +303,7 @@ g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", siz
 plot(g)
 ```
 
-### Interactive maps - 2
+### Interactive maps - 3
 
 The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
 
