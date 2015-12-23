@@ -48,7 +48,7 @@ Automated systems can take different forms;
 
 - more simple systems that e.g. to extract date from a satellite image file name.
 
-### Demo 1: Integrated analysis chain from download to analysis
+### Demo: Integrated analysis chain from download to analysis
 
 In the script below we do the following:
 
@@ -86,6 +86,7 @@ plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
 Now we can sample the height data and visualise in the nice interactive scatterplot:
 
 ```{r, message=FALSE}
+# you might need to install the googleVis package first
 suppressPackageStartupMessages(library(googleVis))
 out <- extract(bel, Sint, df = TRUE, sp = TRUE)
 df <- data.frame(out@coords, height = out@data, row.names=NULL)
@@ -93,7 +94,19 @@ names(df) <- c('x', 'y', 'height')
 df$x <- NULL
 ```
 
-```{r, results='asis', echo=FALSE, fig.align='center'}
+The create the graph using `gvisScatterChart`:
+
+```{r, eval=FALSE}
+sc <- gvisScatterChart(data=df,
+                        options=list(width=600, height=500,
+                            legend='none',
+                            hAxis="{title:'Y (Latitude)'}",
+                            vAxis="{title:'Height'}"))
+plot(sc)
+```
+
+
+```{r, results='asis', fig.align='center', echo = FALSE}
 sc <- gvisScatterChart(data=df,
                         options=list(width=600, height=500,
                             legend='none',
@@ -106,24 +119,9 @@ print('</center>')
 
 This example can easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-**Try it yourself**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
 
-### Demo 2: Visualising mean world precipitation dynamics
+**Question**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above! Try it yourself and upload your script to our Blacboard page so that other teams can try it.
 
-Visualising mean world precipitation automatically downloaded from http://www.worldclim.org/methods
-
-```{r, animation, fig.width=10, fig.height=5, fig.show='animate', message=FALSE}
-library(raster)
-library(rasterVis)
-library(colorspace)
-prec <- raster::getData('worldclim', var='prec', res=10)
-names(prec) <- month.abb
-cols <- heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1)
-cols <- rev(sequential_hcl(12))
-for (i in 1:12) {
-    plot(prec, i, zlim=c(0,500), col=cols)
-}
-```
 
 ### The contribution of scripting
 
@@ -322,10 +320,9 @@ To summarize, we saw today that scripting can be used for many purposes:
 * Make work reproducible (also beneficial for collaboration)
 * Visualize data and build interactive geo data visualization tools
 
-
 # Assignment
 
-Submit a minimum 1/2 page (and maximum 1 page) document where you identify per team:
+Submit a max 1/2 page document via blackboard where you identify per team:
 
 - A brief description of your thesis project or any project in which you plan to use GeoScripting.
   - highlight the potential contribution of Geo-scripting for yourself, 
@@ -334,7 +331,7 @@ Submit a minimum 1/2 page (and maximum 1 page) document where you identify per t
 Keep it short, to the point and structured. 
 (e.g. a list of items are ok, no full sentences are needed). 
 
-The deadline is before the end of today (6/01).
+The deadline is before the end of today (6/01). Again, provide feedback to at least one other team on their assignment.
 
 # Inspiration and more info
 
