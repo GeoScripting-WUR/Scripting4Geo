@@ -1,0 +1,53 @@
+---
+title: "[WUR GRS-51806 Geoscripting](https://geoscripting-wur.github.io/)"
+subtitle: "Test"
+author: "J. E."
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    number_sections: yes
+    css: custom.css
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+---
+    
+# Shiny test
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+## H2
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+
+<!--
+<center>
+<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
+s</iframe>
+</center> 
+-->
+
+# Google Viz
+```{r, interactive, echo=FALSE, results='asis'}
+suppressPackageStartupMessages(library(googleVis))
+library(XML)
+library(httr)
+op <- options(gvis.plot.tag='chart')
+
+# Read table from html
+url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
+#x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+page <- GET(url, user_agent("httr"))
+x <- readHTMLTable(text_content(page), which=3, stringsAsFactors = FALSE)
+
+# Clean up df 
+colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
+x$oldest <- as.numeric(x$oldest)
+x$number <- as.numeric(gsub("\\*", "", x$number))
+x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
+x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
+
+nationalParks <- x
+
+g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
+                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
+plot(g)
+```

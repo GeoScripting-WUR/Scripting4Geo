@@ -4,7 +4,6 @@
   top: 0;
   padding-top: 100px;
   width: 220px;
-  
   overflow:auto;
   color: #003C5C; 
   background-image: url("figs/wur-logo.png");
@@ -14,7 +13,7 @@
 
 body {
   font-family: "Calibri", "Verdana", Helvetica, sans-serif;
-  font-size: 1em;
+  /* font-size: 1em; */
   max-width: 800px;
   margin: auto;
   margin-left: 230px;

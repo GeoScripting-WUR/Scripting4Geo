@@ -262,6 +262,9 @@ The map below (created using the googleVis package) displays statistics about th
 library(googleVis)
 library(XML)
 library(httr)
+# set googleVis options to change the behaviour of plot.gvis, 
+# so that only the chart component of the HTML file is written into the # output file.
+op <- options(gvis.plot.tag='chart')
 
 # Read table from html
 url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
@@ -280,9 +283,8 @@ nationalParks <- x
 
 g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
                   options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
-print('<center>')
-print(g)
-print('</center>')
+
+plot(g)
 ```
 
 ### Interactive maps - 2
