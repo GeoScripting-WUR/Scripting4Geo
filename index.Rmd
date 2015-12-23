@@ -107,14 +107,14 @@ plot(sc)
 
 
 ```{r, results='asis', fig.align='center', echo = FALSE}
+op <- options(gvis.plot.tag='chart')
 sc <- gvisScatterChart(data=df,
                         options=list(width=600, height=500,
                             legend='none',
                             hAxis="{title:'Y (Latitude)'}",
                             vAxis="{title:'Height'}"))
-print('<center>')
-print(sc)
-print('</center>')
+
+plot(sc)
 ```
 
 This example can easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.

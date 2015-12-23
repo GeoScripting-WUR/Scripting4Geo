@@ -38,3 +38,5 @@ if(!require(shiny))
 runGitHub('dutri001/shinyGoogleVis', launch.browser = TRUE)
 ```
 
+
+
