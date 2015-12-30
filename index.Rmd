@@ -16,12 +16,12 @@ output:
 
 ## ToDo in the morning
 
-- Finalise yesterdays [lesson and excercise](https://geoscripting-wur.github.io/Scripting4GeoIntro/#gettingstarted)
+- Finalise yesterdays [lesson and excercise](https://geoscripting-wur.github.io/Scripting4GeoIntro)
 - Have a look at the demo's below. Just run and see.
 
 ## Objective of today
 
-Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, Analysis). 
+Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, analysis). 
 Every showcase will be followed by:
 
 - A reflection of what is the interest of using scripting for that particular problem
@@ -29,7 +29,7 @@ Every showcase will be followed by:
 
 ## Learning outcomes of today:
 
-The objective of that lecture is to provide an overview of the capabilities of scripting to solve common problems of the Geo-Information world. The lesson is organized as a set of examples that you can run, visualize the output and understand how the use of scripting was beneficial to tackling the geo-issue. Following each example a reflection is provided on the interest of using scripting for tackling that particular issue as well as associated scripting skills that were required in the example.
+The objective of this lecture is to provide an overview of the capabilities of scripting to solve common problems of the Geo-Information world. This lesson is organized as a set of examples that you can run, visualize the output and understand how the use of scripting was beneficial to tackling the geo-issue. Following each example a reflection is provided on the interest of using scripting for tackling that particular issue as well as associated scripting skills that were required in the example.
 
 So more specifically, at the end of the day you should:
 
@@ -46,7 +46,7 @@ Automated systems can take different forms;
 
 - online systems that deliver updated information every day without human intervention needed (e.g. weather prediction). 
 
-- more simple systems that e.g. to extract date from a satellite image file name.
+- more simple systems that e.g. extract the date from a satellite image file name.
 
 ### Demo: Integrated analysis chain from download to analysis
 
@@ -94,7 +94,7 @@ names(df) <- c('x', 'y', 'height')
 df$x <- NULL
 ```
 
-The create the graph using `gvisScatterChart`:
+Then create the graph using `gvisScatterChart`:
 
 ```{r, eval=FALSE}
 sc <- gvisScatterChart(data=df,
@@ -117,7 +117,7 @@ sc <- gvisScatterChart(data=df,
 plot(sc)
 ```
 
-This example can easily be ran for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
+This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
 
 **Question**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above! Try it yourself and upload your script to our Blacboard page so that other teams can try it.
@@ -128,26 +128,26 @@ This example can easily be ran for every country of the world with minimal human
 - ability to automatically download data from any place in the world
 - quick and efficient analysis by sampling data randomly
 - can easiliy be repeated for other countries, other datasets (reproducible)
-- Fully integrated analysis chain, from data download to output
+- fully integrated analysis chain, from data download to output
 
 ### Basic scriping skills required
 
 - String handling (generate automatic file names, recognize patterns, etc ...)
 - Query lists and data.frames
 - Error handling
-- handle raster and vector data
+- Handle raster and vector data
 - Understand and use basic spatial analysis functions
 
 ## Flexibility
 
-With GIS software you are often limited to set of feature the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
+With GIS software you are often limited to a set of features the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
 
 * Explore your data in all its dimensions
 * Implement complex and custom made algorithms and functions.
 
 ### Demo 1 - *Visualize the temporal profile of a pixel*
 
-The example bellow illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
+The example below illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
 
 ```{r, eval=FALSE}
 # Download a spatio-temporal dataset
@@ -186,7 +186,7 @@ Exploring the temporal dimension of a dataset is often not possible in classical
 
 ### Demo 2 - *Implement a custom made function to a raster time-series*
 
-The example below uses a time-series of MODIS VCF data, which correspond to percentage tree cover, to investigate temporal trends of tree cover over the Netherlands.
+The example below uses a time-series of MODIS VCF data, which correspond to percentage tree cover, to investigate temporal trends of tree cover over The Netherlands.
 
 ```{r, eval=FALSE}
 ## Trend calculator
@@ -242,7 +242,7 @@ You should see a map displaying the tree cover percentage temporal trends for th
 
 ### Contribution of scripting
 
-Scripting thanks to its flexibility offers the possibility to implement any custom made function to any dataset.
+Scripting, thanks to its flexibility, offers the possibility to implement any custom made function to any dataset.
 
 ### Basic scripting skills required
 
@@ -272,7 +272,7 @@ See here for more information: http://www.htmlwidgets.org/showcase_leaflet.html
 
 ### Interactive maps - 2 
 
-The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [the wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
+The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [this wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
 ```{r, interactive, echo=FALSE, results='asis'}
 library(googleVis)
@@ -305,7 +305,7 @@ plot(g)
 
 ### Interactive maps - 3
 
-The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the lattest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. These app can either be ran in an RStudio session or online.
+The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the latest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. This app can either be run in an RStudio session or online.
 
 Advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
 
@@ -321,7 +321,7 @@ Advanced examples are possible, as shown below, with an integration of shiny and
 
 ### Basic scipting skills required
 
-* dataframe manipulation
+* Dataframe manipulation
 * String manipulation (subsetting, pattern matching)
 * Function writting
 
