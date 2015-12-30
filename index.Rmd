@@ -1,5 +1,5 @@
 ---
-title: "[WUR GRS-51806 Geoscripting](https://geoscripting-wur.github.io/)"
+title: "[WUR Geo-scripting](https://geoscripting-wur.github.io/)"
 subtitle: "Week 1, Lesson 2: Scripting for Geo-Information Sciences, demonstration of capabilities"
 author: "Loïc Dutrieux, Jan Verbesselt & Johannes Eberenz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -353,6 +353,7 @@ The deadline is before the end of today (6/01). Again, provide feedback to at le
 
 # Inspiration and more info
 
+- [Using Jupyter notebook within OSGEO](http://www.r-bloggers.com/interactive-r-notebooks-with-jupyter-and-sagemathcloud/)
 - http://www.magesblog.com/2012/05/interactive-reports-in-r-with-knitr-and.html
 - https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r
 
