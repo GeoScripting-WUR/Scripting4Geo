@@ -18,7 +18,7 @@ Here is what you will do today:
 Time  | Activity
 ------------- | -------------
 Morning  |  Self-study: go through the demo's below and finalise yesterdays lesson
-1330 to 1530  | Presentation by Allard de Wit about Linux, Introduction to OSGEO-live!
+1330 to 1530  | Presentation by Fritz van Deventer (https://www.nelen-schuurmans.nl/) and Allard de Wit (Alterra) about Linux, Introduction to OSGEO-live!
 Rest of the afternoon | Do/finalise the exercise.
 
 ## Objective of today
