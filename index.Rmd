@@ -267,7 +267,7 @@ library(leaflet)
 m <- leaflet()
 m <- addTiles(m)
 m <- addMarkers(m, lng=5.665349, lat=51.987870, popup="Wageningen University")
-m
+print(m)
 ```
 
 See here for more information: http://www.htmlwidgets.org/showcase_leaflet.html
