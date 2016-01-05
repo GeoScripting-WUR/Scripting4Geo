@@ -335,7 +335,7 @@ All examples shown in this demo have at least one characteristic in common; they
 
 # Today's summary
 
-To summarize, we saw today that scripting can be used for many purposes:
+To summarize, we learned today that scripting can be used for many purposes:
 
 * Automate steps and deal with large amounts of data
 * Solve complex problems (run custom made functions, while traditional GIS environments are limited to the features they provide)
@@ -346,14 +346,15 @@ To summarize, we saw today that scripting can be used for many purposes:
 
 Submit a max 1/2 page document via blackboard where you identify per team:
 
-- A brief description of your thesis project or any project in which you plan to use GeoScripting.
+- A brief description of an idea or project in which you plan to use GeoScripting.
   - highlight the potential contribution of Geo-scripting for yourself, 
   - as well as the specific R or python knowledge you would need to learn about
 
 Keep it short, to the point and structured. 
 (e.g. a list of items are ok, no full sentences are needed). 
 
-The deadline is before the end of today (6/01). Again, provide feedback to at least one other team on their assignment.
+The deadline is before the end of today. 
+Again, provide feedback to at least one other team on their assignment.
 
 # Inspiration and more info
 
