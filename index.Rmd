@@ -18,7 +18,7 @@ Here is what you will do today:
 Time  | Activity
 ------------- | -------------
 Morning  |  Self-study: go through the demo's below and finalise yesterdays lesson
-1330 to 1530  | Presentation by Fritz van Deventer (https://www.nelen-schuurmans.nl/) and Allard de Wit (Alterra) about Linux, Introduction to OSGEO-live!
+1330 to 1530  | Presentation by Fritz van Deventer (https://www.nelen-schuurmans.nl/) and Allard de Wit (Alterra) about Linux, Introduction to OSGEO-live by Jan Verbesselt!
 Rest of the afternoon | Do/finalise the exercise.
 
 ## Objective of today
@@ -262,15 +262,17 @@ Check out the nice new leaflet package for R, that creates interactive web maps 
 
 *Question*: Try this in your own R environment.
 
-```{r, interactive1, eval = TRUE}
+```{r, interactive1, eval = FALSE}
 library(leaflet)
 m <- leaflet()
 m <- addTiles(m)
 m <- addMarkers(m, lng=5.665349, lat=51.987870, popup="Wageningen University")
-print(m)
+m
 ```
 
-See here for more information: http://www.htmlwidgets.org/showcase_leaflet.html
+See here for the result of the above code: [Wageningen Leaflet Demo](https://geoscripting-wur.github.io/Scripting4Geo/leaflet.html)
+
+For more information: http://www.htmlwidgets.org/showcase_leaflet.html
 
 ### Interactive maps - 2 
 
