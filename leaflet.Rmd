@@ -1,0 +1,14 @@
+---
+title: "Leaflet Demonstration for Wageningen"
+author: "Jan Verbesselt"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r, interactive1, eval = TRUE}
+library(leaflet)
+m <- leaflet()
+m <- addTiles(m)
+m <- addMarkers(m, lng=5.665349, lat=51.987870, popup="Wageningen University")
+m
+```
