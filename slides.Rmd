@@ -23,8 +23,8 @@ library(raster)
 library(spatstat)
 library(rgeos)
 ## you can choose your own country here
-bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
-belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+bel <- raster::getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- raster::getData('GADM', country='BEL', level=2) ## administrative boundaries
 ## create random points
 dran <- runifpoint(500, win = as.vector(extent(bel)))
 ## make the random point spatial points
@@ -46,8 +46,8 @@ library(raster)
 library(spatstat)
 library(rgeos)
 ## you can choose your own country here
-bel <- getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
-belshp <- getData('GADM', country='BEL', level=2) ## administrative boundaries
+bel <- raster::getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
+belshp <- raster::getData('GADM', country='BEL', level=2) ## administrative boundaries
 ## create random points
 dran <- runifpoint(500, win = as.vector(extent(bel)))
 ## make the random point spatial points
