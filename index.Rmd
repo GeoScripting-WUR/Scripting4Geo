@@ -8,6 +8,11 @@ output:
     menu: FALSE
 ---
 
+```{r setup,  echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
 # [WUR Geoscripting](https://geoscripting-wur.github.io/) ![WUR logo](http://www.wageningenur.nl/upload/f9a0b5f2-15c5-4b84-9e14-20ef02f5e265_wur-logo.png)
 
 # Today's items
@@ -18,7 +23,7 @@ Here is what you will do today:
 Time  | Activity
 ------------- | -------------
 Morning  |  Self-study: go through the demo's below and finalise yesterday's lesson
-13:30 to 15:30  | Presentation by Fritz van Deventer (https://www.nelen-schuurmans.nl/) and Allard de Wit (Alterra) about Linux, Introduction to OSGEO-live by Jan Verbesselt!
+13:30 to 15:30  | Presentation & discussion
 Rest of the afternoon | Do/finalise the exercise.
 
 ## Objective of today
@@ -55,7 +60,7 @@ In the script below we do the following:
 
 - Download SRTM data for a country e.g. Belgium.
 - Randomly sample height data.
-- Visualise results in an interactive plot.
+- Visualise results
 
 ```{r, eval=FALSE, echo=FALSE}
 library(raster)
@@ -84,45 +89,18 @@ plot(belshp, add=TRUE)
 plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
 ```
 
-Now we can sample the height data and visualise in the nice interactive scatterplot:
+Now we can sample the height data, and plot following random point id:
 
-```{r, message=FALSE}
-## You might need to install the googleVis package first
-suppressPackageStartupMessages(library(googleVis))
-out <- extract(bel, Sint, df = TRUE, sp = TRUE)
-df <- data.frame(out@coords, height = out@data, row.names=NULL)
-names(df) <- c('x', 'y', 'height')
-df$x <- NULL
-```
-
-Then create the graph using `gvisScatterChart`:
-
-```{r, eval=FALSE}
-sc <- gvisScatterChart(data=df,
-                        options=list(width=600, height=500,
-                            legend='none',
-                            hAxis="{title:'Y (Latitude)'}",
-                            vAxis="{title:'Height'}"))
-plot(sc)
-```
-
-
-```{r, results='asis', fig.align='center', echo = FALSE}
-op <- options(gvis.plot.tag='chart')
-sc <- gvisScatterChart(data=df,
-                        options=list(width=600, height=500,
-                            legend='none',
-                            hAxis="{title:'Y (Latitude)'}",
-                            vAxis="{title:'Height'}"))
-
-plot(sc)
+```{r, message=FALSE, eval=TRUE}
+out <- extract(bel, Sint, df = TRUE)
+colnames(out) <- c("id", "height")
+head(out)
+plot(out, type = "p", pch = 19)
 ```
 
 This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-
-**Question**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above! Try it yourself and upload your script to our Blacboard page so that other teams can try it.
-
+**Question**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
 
 ### The contribution of scripting
 
@@ -261,7 +239,7 @@ Check out the nice new leaflet package for R, that creates interactive web maps 
 
 **Question**: Try this in your own R environment.
 
-```{r, interactive1, eval = FALSE}
+```{r, interactive1, eval = FALSE, message=FALSE, warning=FALSE}
 library(leaflet)
 m <- leaflet()
 m <- addTiles(m)
