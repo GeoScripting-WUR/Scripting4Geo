@@ -255,7 +255,9 @@ For more information: [http://www.htmlwidgets.org/showcase_leaflet.html](http://
 
 The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [this wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
 
-```{r, interactive, echo=FALSE, results='asis'}
+**Note**: This is advanced code and is shown here for reference purposes. You do not need to try to understand it right now.
+
+```{r, interactive, results='asis'}
 library(googleVis)
 library(XML)
 library(httr)
