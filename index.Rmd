@@ -130,7 +130,7 @@ The example below illustrates how a small function allows to quickly visualize t
 
 ```{r, eval=FALSE}
 ## Download a spatio-temporal dataset
-download.file(url = 'https://github.com/dutri001/bfastSpatial/raw/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
+download.file(url = 'https://raw.githubusercontent.com/loicdtx/bfastSpatial/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
 load('tura.rda')
 ```
 
@@ -174,7 +174,7 @@ library(lubridate)
 library(raster)
 
 ## Download data (if it doesn't work, try with method='wget')
-download.file(url = 'https://github.com/GeoScripting-WUR/Scripting4Geo/raw/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'MODIS_VCF_2000-2010_NL.rds', method = 'auto')
+download.file(url = 'https://raw.githubusercontent.com/GeoScripting-WUR/Scripting4Geo/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'MODIS_VCF_2000-2010_NL.rds', method = 'auto')
 ## Read the data
 modis <- readRDS('MODIS_VCF_2000-2010_NL.rds')
 ## Clean data (values > 100 correspond to water)
