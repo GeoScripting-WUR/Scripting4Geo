@@ -100,7 +100,7 @@ plot(out, type = "p", pch = 19)
 
 This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-**Question 1**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
+> **Question 1**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
 
 ### The contribution of scripting
 
@@ -109,7 +109,7 @@ This example can easily be run for every country of the world with minimal human
 - Can easiliy be repeated for other countries, other datasets (reproducible).
 - Fully integrated analysis chain, from data download to output.
 
-### Basic scriping skills required
+### Basic scripting skills required
 
 - String handling (generate automatic file names, recognize patterns, etc ...).
 - Querying lists and data.frames.
@@ -237,7 +237,7 @@ We saw earlier that simple maps can be produced with *R* for display in reports 
 
 Check out the nice new leaflet package for R, that creates interactive web maps with the JavaScript 'Leaflet' Library. 
 
-**Question 2**: Try this in your own R environment.
+> **Question 2**: Try this in your own R environment.
 
 ```{r, interactive1, eval = FALSE, message=FALSE, warning=FALSE}
 library(leaflet)
@@ -294,7 +294,7 @@ Advanced examples are possible, as shown below, with an integration of shiny and
 
 
 <center>
-<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="1100" height="800" frameborder="0">
+<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="100%" height="800" frameborder="0">
 </iframe>
 </center>
 
