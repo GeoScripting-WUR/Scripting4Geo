@@ -3,17 +3,15 @@ author: "Loïc Dutrieux, Jan Verbesselt & Johannes Eberenz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   knitrBootstrap::bootstrap_document:
-    title: "Week 1, Lesson 2: Scripting for Geo-Information Sciences, demonstration of capabilities"
-    theme: cosmo
+    title: "Insert title here"
+    theme: "simplex"
+    highlight: Tomorrow Night Bright
     menu: FALSE
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
 ---
 
-```{r setup,  echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
-```
-
-
-# [WUR Geoscripting](https://geoscripting-wur.github.io/) ![WUR logo](http://www.wageningenur.nl/upload/f9a0b5f2-15c5-4b84-9e14-20ef02f5e265_wur-logo.png)
+# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
 
 # Today's items
 
@@ -321,7 +319,7 @@ To summarize, we learned today that scripting can be used for many purposes:
 * Make work reproducible (also beneficial for collaboration).
 * Visualize data and build interactive geo-data visualization tools.
 
-# Assignment
+# Lesson 02 Assignment
 
 Submit a max 1/2 page document via Blackboard, where you identify (per team) a brief description of an idea or project in which you plan to use GeoScripting. Highlight:
 
@@ -330,7 +328,7 @@ Submit a max 1/2 page document via Blackboard, where you identify (per team) a b
 
 Keep it short, to the point and structured (e.g. a list of items are OK, no full sentences are needed). 
 
-The deadline is before the end of today. Again, provide feedback to at least one other team on their assignment.
+The deadline for the exercise is today before 17.15 PM. Feedback has to be provided to at least one other team on their assignment before tomorrow 11AM.
 
 # Inspiration and more info
 
