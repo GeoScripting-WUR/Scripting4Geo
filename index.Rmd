@@ -3,7 +3,6 @@ author: "Loïc Dutrieux, Jan Verbesselt & Johannes Eberenz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   knitrBootstrap::bootstrap_document:
-    title: "Insert title here"
     theme: "simplex"
     highlight: Tomorrow Night Bright
     menu: FALSE
@@ -321,10 +320,15 @@ To summarize, we learned today that scripting can be used for many purposes:
 
 # Lesson 02 Assignment
 
-Submit a max 1/2 page document via Blackboard, where you identify (per team) a brief description of an idea or project in which you plan to use GeoScripting. Highlight:
+Submit a max 1/2 page document via Blackboard as text (just paste the text in the available box).
+
+In the description you identify (per team) the idea for which you plan to use GeoScripting. 
+
+Highlight:
 
 - The potential contribution of Geo-scripting for yourself. 
 - The specific R or Python knowledge you would need to learn about.
+- Describe the data you would like to use (is the data available?)
 
 Keep it short, to the point and structured (e.g. a list of items are OK, no full sentences are needed). 
 
