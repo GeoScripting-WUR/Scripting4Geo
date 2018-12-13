@@ -14,14 +14,11 @@ output:
 
 # Today's items
 
-Good morning! 
-Here is what you will do today:
+Good morning! Here is what you will do today:
 
-Time  | Activity
-------------- | -------------
-Morning  |  Self-study: go through the demo's below and finalise yesterday's lesson
-13:30 to 15:30  | Presentation & discussion
-Rest of the afternoon | Do/finalise the exercise.
+- Morning Self-study: go through the demo's below and finalise yesterdays assignment and review
+- 14u Presentation & discussion
+- Rest of the afternoon | Do/finalise the exercise.
 
 ## Objective of today
 
@@ -250,41 +247,6 @@ For more information: [http://www.htmlwidgets.org/showcase_leaflet.html](http://
 
 ### Demo 2: *Interactive maps*
 
-The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [this wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
-
-**Note**: This is advanced code and is shown here for reference purposes. You do not need to try to understand it right now.
-
-```{r, interactive, results='asis'}
-library(googleVis)
-library(XML)
-library(httr)
-# set googleVis options to change the behaviour of plot.gvis, 
-# so that only the chart component of the HTML file is written into the # output file.
-op <- options(gvis.plot.tag='chart')
-
-# Read table from html
-url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
-#x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
-page <- GET(url, user_agent("httr"))
-x <- readHTMLTable(text_content(page), which=3, stringsAsFactors = FALSE)
-
-# Clean up df 
-colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
-x$oldest <- as.numeric(x$oldest)
-x$number <- as.numeric(gsub("\\*", "", x$number))
-x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
-x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
-
-nationalParks <- x
-
-g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
-                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
-
-plot(g)
-```
-
-### Demo 3: *Interactive maps*
-
 The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the latest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. This app can either be run in an RStudio session or online.
 
 Advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
@@ -332,7 +294,17 @@ Highlight:
 
 Keep it short, to the point and structured (e.g. a list of items are OK, no full sentences are needed). 
 
-The deadline for the exercise is today before 17.15 PM. Feedback has to be provided to at least one other team on their assignment before tomorrow 11AM.
+## Submission
+
+The deadline for the exercise is today before 17.15 PM. 
+
+## Reviewing
+
+- Feedback has to be provided to at least one other team on their assignment before tomorrow 11AM.
+- Use the Rubric and copy the filled in assessment form in the textbox of BlackBoard.
+- The *Geoscripting* team will assess the quality of the review - and evaluate on a GO/NO GO basis.
+
+
 
 # Inspiration and more info
 
@@ -358,6 +330,44 @@ Make a reproducible map
 Extract features immediately followed by statistical analysis
 Communicate result with a beautiful interactive (shiny) map
 Bonus: If every showcase is embedded into a real world story, that is definitely a bonus
+
+
+### Demo 2: *Interactive maps*
+
+The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [this wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
+
+**Note**: This is advanced code and is shown here for reference purposes. You do not need to try to understand it right now.
+
+```{r, interactive, results='asis', eval= FALSE}
+library(googleVis)
+library(XML)
+library(httr)
+# set googleVis options to change the behaviour of plot.gvis, 
+# so that only the chart component of the HTML file is written into the # output file.
+op <- options(gvis.plot.tag='chart')
+
+# Read table from html
+url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
+#x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
+page <- GET(url, user_agent("httr"))
+x <- readHTMLTable(text_content(page), which=3, stringsAsFactors = FALSE)
+
+# Clean up df 
+colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
+x$oldest <- as.numeric(x$oldest)
+x$number <- as.numeric(gsub("\\*", "", x$number))
+x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
+x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
+
+nationalParks <- x
+
+g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
+                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
+
+plot(g)
+```
+
+
 -->
 
 
