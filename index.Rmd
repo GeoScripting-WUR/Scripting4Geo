@@ -280,13 +280,12 @@ To summarize, we learned today that scripting can be used for many purposes:
 * Make work reproducible (also beneficial for collaboration).
 * Visualize data and build interactive geo-data visualization tools.
 
-# Lesson 02 Assignment
+# Excercise 2: Description of your learning objectives and potential project idea
+
+## Description
 
 Submit a max 1/2 page document via Blackboard as text (just paste the text in the available box).
-
-In the description you identify (per team) the idea for which you plan to use GeoScripting. 
-
-Highlight:
+In the description you identify (per team) the idea for which you plan to use GeoScripting:
 
 1. The potential contribution of Geo-scripting for yourself. 
 2. The specific R or Python knowledge you would need to learn about.
@@ -297,15 +296,32 @@ Highlight:
 
 Keep it short, to the point and structured (e.g. a list of items are OK, no full sentences are needed). 
 
-## Submission
+# Bonus
 
-The deadline for the exercise is today before 17.15 PM. 
+No bonus today!
 
-## Reviewing
+# Submission
 
-- Feedback has to be provided to at least one other team on their assignment before tomorrow 11AM.
-- Use the [Rubric](https://docs.google.com/document/d/1mh0CmhQgVJSpflswKUcZrOwQt9uBCsn3kzOLvJhUHEU/edit?usp=sharing) and copy the filled in assessment form in the textbox of BlackBoard (no attachments).
-- The *Geoscripting* team will assess the quality of the review.
+- Use the script review center in BlackBoard to submit your script by **1715**
+- do not use an attachment
+- follow the file naming precisely!
+
+# Peer-Reviewing
+
+You will need to give the team you are reviewing feedback on their exercise solution before **11:00** the next day (use the review team generator Shiny app to see which team). 
+
+- The teams need to use the [Generic Rubric](https://docs.google.com/document/d/1wdqcrqh4Bt-tNwhEFRa4esq7ozwo36tfOjGmbBTK5B4/edit?usp=sharing) and fill in the *form* as a guideline and copy "as text" (*not as a document or attachement*) within the blackboard box.
+
+- The Geo-scripting team will assess the quality of the review done by each team.
+
+The three specific tasks that will be assessed are:
+
+1. The potential contribution of Geo-scripting for yourself.
+2. The specific R or Python knowledge you would need to learn about
+3. Describe the data you would like to use and explore for your final project
+    + Is the data available?
+    + What type of data would you like to visualise/analyse?
+
 
 # Inspiration and more info
 
