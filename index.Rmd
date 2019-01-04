@@ -17,8 +17,8 @@ output:
 Good morning! Here is what you will do today:
 
 - Morning Self-study: go through the demo's below and finalise yesterdays assignment and review
-- 14u Presentation & discussion
-- Rest of the afternoon | Do/finalise the exercise.
+- 14u: Presentation & discussion
+- Rest of the afternoon: Do/finalise the exercise.
 
 ## Objective of today
 
@@ -94,7 +94,9 @@ plot(out, type = "p", pch = 19)
 
 This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-> **Question 1**: You can use the script below to analyse height (or climate data) for your own country by modifying the script above!
+```{block, type="alert alert-success"}
+> **Question 1**: Can you use the script below to analyse height (or climate data) for your own country by modifying the script above?
+```
 
 ### The contribution of scripting
 
@@ -231,7 +233,9 @@ We saw earlier that simple maps can be produced with *R* for display in reports 
 
 Check out the nice new leaflet package for R, that creates interactive web maps with the JavaScript 'Leaflet' Library. 
 
+```{block, type="alert alert-success"}
 > **Question 2**: Try this in your own R environment.
+```
 
 ```{r, interactive1, eval = FALSE, message=FALSE, warning=FALSE}
 library(leaflet)
