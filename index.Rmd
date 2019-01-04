@@ -284,7 +284,7 @@ To summarize, we learned today that scripting can be used for many purposes:
 * Make work reproducible (also beneficial for collaboration).
 * Visualize data and build interactive geo-data visualization tools.
 
-# Excercise 2: Description of your learning objectives and potential project idea
+# Exercise 2: Description of your learning objectives and potential project idea
 
 ## Description
 
