@@ -94,9 +94,8 @@ plot(out, type = "p", pch = 19)
 
 This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-```{block, type="alert alert-success"}
+
 > **Question 1**: Can you use the script below to analyse height (or climate data) for your own country by modifying the script above?
-```
 
 ### The contribution of scripting
 
