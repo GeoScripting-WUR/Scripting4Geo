@@ -313,7 +313,7 @@ No bonus today!
 
 You will need to give the team you are reviewing feedback on their exercise solution before **11:00** the next day (use the review team generator Shiny app to see which team). 
 
-- The teams need to use the [Generic Rubric](https://docs.google.com/document/d/1wdqcrqh4Bt-tNwhEFRa4esq7ozwo36tfOjGmbBTK5B4/edit?usp=sharing) and fill in the *form* as a guideline and copy "as text" (*not as a document or attachement*) within the blackboard box.
+- The teams need to use the [Specific Rubric for lesson 2](https://docs.google.com/document/d/1mh0CmhQgVJSpflswKUcZrOwQt9uBCsn3kzOLvJhUHEU/edit?usp=sharing) and fill in the rubric questions as a guideline and copy "as text" (*not as a document or attachement*) within the blackboard box.
 
 - The Geo-scripting team will assess the quality of the review done by each team.
 
