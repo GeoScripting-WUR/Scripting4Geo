@@ -1,8 +1,10 @@
 ---
+pagetitle: "Extra: Geoscripting in R: demos"
 author: "Loïc Dutrieux, Jan Verbesselt & Johannes Eberenz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   knitrBootstrap::bootstrap_document:
+    title: "Extra: Geoscripting in R: demos"
     theme: "simplex"
     highlight: Tomorrow Night Bright
     menu: FALSE
@@ -10,45 +12,23 @@ output:
     highlight.chooser: TRUE
 ---
 
-# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
+<style type="text/css">
+body {max-width: none;}
+a:visited {color: #91170a;}
+</style>
 
-# Today's items
+# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/>
 
-Good morning! Here is what you will do today:
+# Extra: Geoscripting in R: demos
 
-- Morning Self-study: go through the demo's below and finalise yesterdays assignment and review
-- 14u: Presentation & discussion
-- Rest of the afternoon: Do/finalise the exercise.
-
-## Objective of today
-
-Demonstration of geo-scripting potential. This will be done by providing geo-spatial showcases (e.g. data manipulation, visualization, analysis). 
-Every showcase will be followed by:
+This page is intended as a demonstration of geoscripting potential. This is done by providing geo-spatial showcases (e.g. data manipulation, visualization, analysis). Every showcase is followed by:
 
 - A reflection of what is the interest of using scripting for that particular problem.
 - An assessment of the R knowledge required to perform that particular problem.
 
-## Learning outcomes of today:
+**Note that most of the examples given here are using packages that are now deprecated.** They are remains from old tutorials and exercises from this course in the past. Nonetheless, they are still useful for demonstration and inspiration!
 
-The objective of this lecture is to provide an overview of the capabilities of scripting to solve common problems of the Geo-Information world. This lesson is organized as a set of examples that you can run, visualize the output and understand how the use of scripting was beneficial to tackling the geo-issue. After each example, a reflection is provided about why using scripting is beneficial for tackling that particular issue, as well as what associated scripting skills were required in the example.
-
-So more specifically, at the end of the day you should:
-
-* Have an idea of what can be achieved using scripting.
-* Identify a situation where the use of scripting is beneficial over a click-based approach.
-* Have identified how scripting can benefit your own project (e.g. master thesis research questions).
-
-# Why scripting?
-
-## Automation
-
-The use of scripting is particularly well suited for automation. 
-Automated systems can take different forms; 
-
-- Online systems that deliver updated information every day without human intervention needed (e.g. weather prediction).
-- More simple systems that e.g. extract the date from a satellite image file name.
-
-### Demo: *Integrated analysis chain from download to analysis*
+# Demo 1: Integrated analysis chain from download to analysis
 
 In the script below we do the following:
 
@@ -56,36 +36,47 @@ In the script below we do the following:
 - Randomly sample height data.
 - Visualise results
 
-```{r, eval=FALSE, echo=FALSE}
+```{r, eval=FALSE, echo=FALSE, warning=FALSE}
 library(raster)
 # getData('ISO3')
 ```
 
 
-```{r, heigh, eval=TRUE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
-## Libraries needed
+```{r, heigh, eval=TRUE, warning=FALSE, message=FALSE, fig.align='center', fig.width=6, fig.lp="Randomly sample height in Belgium"}
+# Load libraries
 library(raster)
 library(spatstat)
 library(rgeos)
-## You can choose your own country here
-bel <- raster::getData('alt', country='BEL', mask=TRUE) ## SRTM 90m height data
-belshp <- raster::getData('GADM', country='BEL', level=2) ## administrative boundaries
-## Create random points
+
+# You can choose your own country here
+bel <- raster::getData('alt', country = 'BEL', mask = TRUE) # SRTM 90m height data
+belshp <- raster::getData('GADM', country = 'BEL', level = 2) # administrative boundaries
+
+# Create random points
 dran <- runifpoint(500, win = as.vector(extent(bel)))
-## Make the random point spatial points
-S <- SpatialPoints(data.frame(x = dran$x, y = dran$y), 
-            proj4string = CRS(proj4string(belshp)))
-## Select only the ones within belgium
+
+# Make the random point spatial points
+S <- SpatialPoints(data.frame(x = dran$x, y = dran$y),
+                   proj4string = CRS(proj4string(belshp)))
+
+# Select only the ones within belgium
 Sint <- gIntersection(S, belshp)
-## Create a map
+
+# Create a map
 plot(bel)
-plot(belshp, add=TRUE)
-plot(Sint, add = TRUE, col = "red", pch = 19, cex = 0.2)
+plot(belshp, add = TRUE)
+plot(
+  Sint,
+  add = TRUE,
+  col = "red",
+  pch = 19,
+  cex = 0.2
+)
 ```
 
 Now we can sample the height data, and plot following random point id:
 
-```{r, message=FALSE, eval=TRUE}
+```{r, message=FALSE, warning=FALSE, eval=TRUE}
 out <- extract(bel, Sint, df = TRUE)
 colnames(out) <- c("id", "height")
 head(out)
@@ -94,17 +85,14 @@ plot(out, type = "p", pch = 19)
 
 This example can easily be run for every country of the world with minimal human intervention, and therefore also constitute an other case of automation.
 
-
-> **Question 1**: Can you use the script below to analyse height (or climate data) for your own country by modifying the script above?
-
-### The contribution of scripting
+## The contribution of scripting
 
 - Ability to automatically download data from any place in the world.
 - Quick and efficient analysis by sampling data randomly.
 - Can easiliy be repeated for other countries, other datasets (reproducible).
 - Fully integrated analysis chain, from data download to output.
 
-### Basic scripting skills required
+## Basic scripting skills required
 
 - String handling (generate automatic file names, recognize patterns, etc ...).
 - Querying lists and data.frames.
@@ -112,19 +100,12 @@ This example can easily be run for every country of the world with minimal human
 - Handling raster and vector data.
 - Understanding and using basic spatial analysis functions.
 
-## Flexibility
-
-With GIS software you are often limited to a set of features the software provides and anything beyond is either very hard to implement or even impossible. Scripting offers a much greater flexibility, to:
-
-* Explore your data in all its dimensions.
-* Implement complex and custom made algorithms and functions.
-
-### Demo 1: *Visualize the temporal profile of a pixel*
+# Demo 2: Visualize the temporal profile of a pixel
 
 The example below illustrates how a small function allows to quickly visualize temporal profile of a raster time-series.
 
 ```{r, eval=FALSE}
-## Download a spatio-temporal dataset
+# Download a spatio-temporal dataset
 download.file(url = 'https://raw.githubusercontent.com/loicdtx/bfastSpatial/master/data/tura.rda', destfile = 'tura.rda', method = 'auto')
 load('tura.rda')
 ```
@@ -133,48 +114,59 @@ There is now a variable named `tura` in your environment, it is a time-series of
 
 ```{r, eval=FALSE}
 library(zoo)
-## Define the function to extract and plot the time series
+
+# Define the function to extract and plot the time series
 click2ts <- function(x) {
-    val <- click(x, n = 1)
-    z <- getZ(x)
-    plot(zoo(t(val), z), type = 'p', pch = 20, xlab = 'Time', ylab = 'NDVI (-)')
+  val <- click(x, n = 1)
+  z <- getZ(x)
+  plot(
+    zoo(t(val), z),
+    type = 'p',
+    pch = 20,
+    xlab = 'Time',
+    ylab = 'NDVI (-)'
+  )
 }
 ```
 
 Then run the code block below. R will be waiting for you to click on the map, and quickly after the time-series will appear.
-
 
 ```{r, eval=FALSE}
 plot(tura, 1)
 click2ts(tura)
 ```
 
-### The contribution of scripting
+## The contribution of scripting
 
-Exploring the temporal dimension of a dataset is often not possible in classical GIS environments. The flexibility of scripting allows to do that with minimal efforts.
+* Exploring the temporal dimension of a dataset is often not possible in classical GIS environments. The flexibility of scripting allows to do that with minimal efforts.
 
-### Basic scripting skills required
+## Basic scripting skills required
 
 * Understanding the structure of spatial objects.
 * Writing functions.
 
-### Demo 2: *Implement a custom made function to a raster time-series*
+# Demo 3: Implement a custom made function to a raster time-series
 
 The example below uses a time-series of MODIS VCF data, which corresponds to percentage tree cover, to investigate temporal trends of tree cover over the Netherlands.
 
 ```{r, eval=FALSE}
-## Trend calculator
+# Load libraries
 library(zoo)
 library(lubridate)
 library(raster)
 
-## Download data (if it doesn't work, try with method='wget')
-download.file(url = 'https://raw.githubusercontent.com/GeoScripting-WUR/Scripting4Geo/gh-pages/data/MODIS_VCF_2000-2010_NL.rds', destfile = 'MODIS_VCF_2000-2010_NL.rds', method = 'auto')
-## Read the data
+# Download data (if it doesn't work, try with method='wget')
+download.file(url = 'https://raw.githubusercontent.com/GeoScripting-WUR/Scripting4Geo/gh-pages/data/MODIS_VCF_2000-2010_NL.rds',
+              destfile = 'MODIS_VCF_2000-2010_NL.rds',
+              method = 'auto')
+
+# Read the data
 modis <- readRDS('MODIS_VCF_2000-2010_NL.rds')
-## Clean data (values > 100 correspond to water)
+
+# Clean data (values > 100 correspond to water)
 modis[modis > 100] <- NA
-## Visualize
+
+# Visualize
 plot(modis, 1)
 ```
 
@@ -182,6 +174,7 @@ plot(modis, 1)
 # For compiling tutorial
 modis <- readRDS('data/MODIS_VCF_2000-2010_NL.rds')
 modis[modis > 100] <- NA
+
 # Visualize
 plot(modis, 1)
 ```
@@ -189,21 +182,21 @@ plot(modis, 1)
 ```{r, eval=FALSE}
 # For the example we will reduce the extent so that processing does not take too long
 e <- extent(340101, 370323, 5756221, 5787772)
-plot(e, add=TRUE)
+plot(e, add = TRUE)
 modis_sub <- crop(modis, e)
 plot(modis_sub, 1)
 
 # Define function to calculate temporal trends
 fun <- function(x) {
-    ts <- zoo(x, time)
-    df <- data.frame(t = decimal_date(index(ts)), vcf = c(ts))
-    out <- try(lm(vcf ~ t, data = df)$coefficients[2], silent = T)
-    if(class(out) == 'try-error')
-        out <- NA
-    return(out)
+  ts <- zoo(x, time)
+  df <- data.frame(t = decimal_date(index(ts)), vcf = c(ts))
+  out <- try(lm(vcf ~ t, data = df)$coefficients[2], silent = T)
+  if (class(out) == 'try-error')
+    out <- NA
+  return(out)
 }
 
-# Run the function spatially (this may take a few minutes, time for a break?)
+# Run the function spatially
 time <- getZ(modis)
 out <- calc(x = modis_sub, fun = fun)
 
@@ -214,33 +207,25 @@ hist(out, main = 'Tree cover change at 250 m resolution (2000-2010)', xlab = 'Pe
 
 You should see a map displaying the tree cover percentage temporal trends for the 2000-2010 period.
 
-### Contribution of scripting
+## Contribution of scripting
 
-Scripting, thanks to its flexibility, offers the possibility to implement any custom made function to any dataset.
+* Scripting, thanks to its flexibility, offers the possibility to implement any custom made function to any dataset.
 
-### Basic scripting skills required
+## Basic scripting skills required
 
 * Writing functions.
 * Manipulating spatial objects.
 * Knowing the details of the functions/algorithms to be implemented spatially.
 
-## Visualization
-
-We saw earlier that simple maps can be produced with *R* for display in reports or static supports. *R* also offers more advanced visualisation capabilities, particularly suited for web content.
-
-### Demo 1: *Interactive maps*
+# Demo 4: Interactive maps
 
 Check out the nice new leaflet package for R, that creates interactive web maps with the JavaScript 'Leaflet' Library. 
-
-```{block, type="alert alert-success"}
-> **Question 2**: Try this in your own R environment.
-```
 
 ```{r, interactive1, eval = FALSE, message=FALSE, warning=FALSE}
 library(leaflet)
 m <- leaflet()
 m <- addTiles(m)
-m <- addMarkers(m, lng=5.665349, lat=51.987870, popup="Wageningen University")
+m <- addMarkers(m, lng = 5.665349, lat = 51.987870, popup = "Wageningen University")
 m
 ```
 
@@ -248,83 +233,32 @@ See here for the result of the above code: [Wageningen Leaflet Demo](https://geo
 
 For more information: [http://www.htmlwidgets.org/showcase_leaflet.html](http://www.htmlwidgets.org/showcase_leaflet.html)
 
-### Demo 2: *Interactive maps*
-
 The above map is nice, but still pretty static; it only displays two variables, which we did not choose. The year the first park was created for the dot color, and the total number of parks in the country for the dot size. To make that map a bit more interactive we can embed it in a shiny App. Shiny is among the latest developments of the R world, supported by RStudio; it provides the possibility to create interactive plots. This app can either be run in an RStudio session or online.
 
-Advanced examples are possible, as shown below, with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
+Advanced examples are possible, as shown [here](https://gallery.shinyapps.io/063-superzip-example), with an integration of shiny and [leaflet](http://leafletjs.com/). (Example provided by [RStudio](http://shiny.rstudio.com/gallery/))
 
-
-<center>
-<iframe src="https://gallery.shinyapps.io/063-superzip-example" width="100%" height="800" frameborder="0">
-</iframe>
-</center>
-
-### Contribution of scripting
+## Contribution of scripting
 
 * "User friendly" interface to JavaScript libraries.
 
-### Basic scipting skills required
+## Basic scipting skills required
 
 * Dataframe manipulation.
 * String manipulation (subsetting, pattern matching).
 * Function writing.
 
-## Reproducibility
+# Reproducibility
 
-All examples shown in this demo have at least one characteristic in common; they are all **reproducible**. While you may not always remember the parameters you have selected when analyzing or creating map in a GIS environment, scripting leaves a fully reproducible mark of what you have done.
+Note that all examples shown in this demo have at least one characteristic in common; they are all **reproducible**. While you may not always remember the parameters you have selected when analyzing or creating map in a GIS environment, scripting leaves a fully reproducible mark of what you have done.
 
-# Today's summary
+# Summary
 
-To summarize, we learned today that scripting can be used for many purposes:
+Geoscripting allows us to:
 
 * Automate steps and deal with large amounts of data.
 * Solve complex problems (run custom made functions, while traditional GIS environments are limited to the features they provide).
 * Make work reproducible (also beneficial for collaboration).
 * Visualize data and build interactive geo-data visualization tools.
-
-# Exercise 2: Description of your learning objectives and potential project idea
-
-## Description
-
-Submit a max 1/2 page document via Blackboard as text (just paste the text in the available box).
-In the description you identify (per team) the idea for which you plan to use GeoScripting:
-
-1. The potential contribution of Geo-scripting for yourself. 
-2. The specific R or Python knowledge you would need to learn about.
-3. Describe the data you would like to use for your final project:
-    + Is the data available?
-    + What type of data would you like to visualise/analyse?
-
-
-Keep it short, to the point and structured (e.g. a list of items are OK, no full sentences are needed). 
-
-# Bonus
-
-No bonus today!
-
-# Submission
-
-- Use the script review center in BlackBoard to submit your script by **1715**
-- do not use an attachment
-- follow the file naming precisely!
-
-# Peer-Reviewing
-
-You will need to give the team you are reviewing feedback on their exercise solution before **11:00** the next day (use the review team generator Shiny app to see which team). 
-
-- The teams need to use the [Specific Rubric for lesson 2](https://docs.google.com/document/d/1mh0CmhQgVJSpflswKUcZrOwQt9uBCsn3kzOLvJhUHEU/edit?usp=sharing) and fill in the rubric questions as a guideline and copy "as text" (*not as a document or attachement*) within the blackboard box.
-
-- The Geo-scripting team will assess the quality of the review done by each team.
-
-The three specific tasks that will be assessed are:
-
-1. The potential contribution of Geo-scripting for yourself.
-2. The specific R or Python knowledge you would need to learn about
-3. Describe the data you would like to use and explore for your final project
-    + Is the data available?
-    + What type of data would you like to visualise/analyse?
-
 
 # Inspiration and more info
 
@@ -333,61 +267,3 @@ The three specific tasks that will be assessed are:
 - [How to clip polygons using polygons](https://gis.stackexchange.com/questions/93096/how-to-perform-a-true-gis-clip-of-polygons-layer-using-a-polygon-layer-in-r)
 - [Yet another tutorial](https://pakillo.github.io/R-GIS-tutorial/)
 - [googleVis package](http://github.com/mages/googleVis)
-- [About projections and code](https://www.nceas.ucsb.edu/scicomp/recipes/projections)
-
-
-<!--Demonstrate potential
-Trigger interest
-Help students mapping (in their mind) the concepts and knowledge they will learn and require later in the course
-This will be done by providing showcases of about everything (data manipulation, visualization, Analysis). Every showcase fill be followed by:
-A reflection on what is the interest of using scripting for that particular problem
-An assessment of the R knowledge required to perform that particular problem
-This lesson should be structured analogically to the course overall.
-
-Example showcases:
-An automated raster processing chain (from raw input (or download) to end product)
-Make a reproducible map
-Extract features immediately followed by statistical analysis
-Communicate result with a beautiful interactive (shiny) map
-Bonus: If every showcase is embedded into a real world story, that is definitely a bonus
-
-
-### Demo 2: *Interactive maps*
-
-The map below (created using the googleVis package) displays statistics about the national parks of Europe. The data is automatically read from [this wikipedia page](http://en.wikipedia.org/wiki/List_of_national_parks#Europe), cleaned and formatted in a data frame, and a webmap is created using the `gvisGeoChart()` function. If you hover over the dots, the value of the mapped variables is displayed. The googleVis package provides wrappers to easily produce such kind of maps using the [google visualization API](https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart).
-
-**Note**: This is advanced code and is shown here for reference purposes. You do not need to try to understand it right now.
-
-```{r, interactive, results='asis', eval= FALSE}
-library(googleVis)
-library(XML)
-library(httr)
-# set googleVis options to change the behaviour of plot.gvis, 
-# so that only the chart component of the HTML file is written into the # output file.
-op <- options(gvis.plot.tag='chart')
-
-# Read table from html
-url <- "http://en.wikipedia.org/wiki/List_of_national_parks"
-#x <- readHTMLTable(readLines(url), which=3, stringsAsFactors = FALSE)
-page <- GET(url, user_agent("httr"))
-x <- readHTMLTable(text_content(page), which=3, stringsAsFactors = FALSE)
-
-# Clean up df 
-colnames (x) <- c('country', 'oldest', 'number', 'area_tot', 'country_percentage')
-x$oldest <- as.numeric(x$oldest)
-x$number <- as.numeric(gsub("\\*", "", x$number))
-x$area_tot <- as.numeric(gsub("(,)|(\\[.*\\])", "", x$area_tot))
-x$country_percentage <- as.numeric(gsub("(%)|(\\[.*\\])", "", x$country_percentage))
-
-nationalParks <- x
-
-g <- gvisGeoChart(nationalParks, locationvar="country", colorvar = "oldest", sizevar = "number",
-                  options=list(region="150", displayMode="markers", colorAxis="{colors: ['green', 'blue']}"))
-
-plot(g)
-```
-
-
--->
-
-
